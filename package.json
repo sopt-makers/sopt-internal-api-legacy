@@ -9,6 +9,7 @@
     "build": "tsc",
     "clean": "rimraf ./dist",
     "db:type": "sql-ts -c dbconfig.json",
+    "db:migrate": "ts-node ./src/database/migrate.ts",
     "lint": "run-s lint:*",
     "lint:eslint": "eslint --ignore-path .gitignore --resolve-plugins-relative-to . --fix .",
     "lint:prettier": "prettier --ignore-path .gitignore --write ."

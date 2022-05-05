@@ -1,9 +1,12 @@
 import { Kysely, PostgresDialect } from "kysely";
 
-import { Users } from "../__generated__/psql";
+import { Links, Projects, ProjectUsers, Users } from "../__generated__/psql";
 
 export interface DatabaseSchema {
   users: Users;
+  projects: Projects;
+  project_users: ProjectUsers;
+  links: Links;
 }
 
 export type Database = Kysely<DatabaseSchema>;
