@@ -1,4 +1,4 @@
-import { Repository } from "../repository";
+import type { Repository } from "@/domain";
 
 export interface Services {
   hello(): string;

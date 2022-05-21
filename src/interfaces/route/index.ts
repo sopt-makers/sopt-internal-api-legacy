@@ -1,7 +1,7 @@
 import { Router } from "express";
 
-import { Services } from "../service";
-import { asyncRoute } from "../util/route";
+import { Services } from "@/application/service";
+import { asyncRoute } from "@/util/route";
 
 interface CreateRoutesDeps {
   services: Services;

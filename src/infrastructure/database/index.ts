@@ -1,6 +1,6 @@
 import { Kysely, PostgresDialect } from "kysely";
 
-import { Links, Projects, ProjectUsers, Users } from "../__generated__/psql";
+import { Links, Projects, ProjectUsers, Users } from "@/domain/__generated__/psql";
 
 export interface DatabaseSchema {
   users: Users;
@@ -17,6 +17,7 @@ interface CreateDatabaseDeps {
 
 export function createDatabase({ DATABASE_URI }: CreateDatabaseDeps): Database {
   const db = new Kysely<DatabaseSchema>({
+    // TODO: decouple database implementation
     dialect: new PostgresDialect({
       connectionString: DATABASE_URI,
     }),

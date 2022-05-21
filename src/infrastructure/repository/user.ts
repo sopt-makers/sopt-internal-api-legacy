@@ -1,5 +1,5 @@
-import { Users } from "../__generated__/psql";
-import { Database } from "../database";
+import { Users } from "@/domain/__generated__/psql";
+import { Database } from "@/infrastructure/database";
 
 export interface UserRepository {
   getUserByUserId(userId: string): Promise<Users | null>;

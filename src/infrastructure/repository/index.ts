@@ -1,9 +1,6 @@
-import { Database } from "../database";
-import { createUserRepository, UserRepository } from "./user";
-
-export interface Repository {
-  user: UserRepository;
-}
+import { Repository } from "@/domain";
+import { Database } from "@/infrastructure/database";
+import { createUserRepository } from "@/infrastructure/repository/user";
 
 interface RepositoryDeps {
   db: Database;

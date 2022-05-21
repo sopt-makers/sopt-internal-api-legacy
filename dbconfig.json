@@ -9,6 +9,6 @@
   },
   "interfaceNameFormat": "${table}",
   "tableNameCasing": "pascal",
-  "folder": "src/__generated__",
+  "folder": "src/domain/__generated__",
   "filename": "psql"
 }

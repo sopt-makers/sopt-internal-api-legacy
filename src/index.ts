@@ -1,25 +1,11 @@
-import express from "express";
+import { PORT } from "@/infrastructure/config/const";
+import { createServer } from "@/infrastructure/webserver/server";
 
-import { DATABASE_URI, PORT } from "./const";
-import { createDatabase } from "./database";
-import { createRepository } from "./repository";
-import { createRoutes } from "./route";
-import { createServices } from "./service";
-
-(async function () {
-  const app = express();
-
-  const db = createDatabase({
-    DATABASE_URI,
-  });
-
-  const repository = createRepository({ db });
-
-  const services = createServices({ repository });
-
-  app.use("/api", createRoutes({ services }));
-
+async function start() {
+  const app = await createServer();
   app.listen(PORT, () => {
     console.log(`Server Started: (http://localhost:${PORT})`);
   });
-})();
+}
+
+start();
