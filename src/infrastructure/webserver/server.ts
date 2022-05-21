@@ -15,7 +15,7 @@ export async function createServer() {
 
   const services = createServices({ repository });
 
-  app.use("/api", createRoutes({ services }));
+  app.use("/api/v1", createRoutes({ services }));
 
   return app;
 }
