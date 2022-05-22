@@ -6,6 +6,7 @@ import { createServices } from "@/application/service";
 import { bootstrap } from "@/infrastructure/config/bootstrap";
 import { createRepository } from "@/infrastructure/repository";
 import { createRoutes } from "@/interfaces/routes";
+import { createUserRoutes } from "@/interfaces/routes/users";
 
 export async function createServer() {
   const app = express();
@@ -19,10 +20,10 @@ export async function createServer() {
 
   // TODO: inject repository by service locator
   const repository = createRepository({ db });
-
   const services = createServices({ repository });
 
-  app.use("/api/v1", createRoutes({ services }));
+  app.use("/api/v1/hello", createRoutes({ services }));
+  app.use("/api/v1/users", createUserRoutes({ services }));
 
   return app;
 }

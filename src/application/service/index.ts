@@ -1,7 +1,10 @@
 import type { Repository } from "@/domain";
 
+import { createUserService, UserService } from "./user";
+
 export interface Services {
   hello(): string;
+  user: UserService;
 }
 
 interface CreateServicesDeps {
@@ -15,5 +18,6 @@ export function createServices({ repository }: CreateServicesDeps): Services {
     hello() {
       return "world";
     },
+    user: createUserService({ repository }),
   };
 }
