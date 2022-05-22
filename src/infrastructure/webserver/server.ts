@@ -26,6 +26,12 @@ export async function createServer() {
   app.use("/api/v1/hello", createRoutes({ services }));
   app.use("/api/v1/users", createUserRoutes({ services }));
   app.use("/api/v1/projects", createProjectRoutes({ services }));
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  app.use((_err, _req, res, _next) => {
+    console.error(_err);
+    return res.status(500).json({ message: "internal error" });
+  });
 
   return app;
 }

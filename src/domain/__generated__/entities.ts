@@ -34,7 +34,7 @@ export const projectsSchema = z.object({
   detail: z.string(),
   // NOTE: postgresql 의 timestamp 자료형을 sql-ts가 Date 형으로 인식한다.
   // 여기서는 ISO string을 저장할 것이므로 형을 변환시켜주자
-  end_at: z.string().refine(isIsoDate),
+  end_at: z.string().refine(isIsoDate).nullable().optional(),
   generation: z.number().optional().nullable(),
   id: z.number().optional(),
   images: z.array(z.string()).optional().nullable(),

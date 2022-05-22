@@ -1,8 +1,10 @@
 import { Router } from "express";
+import { z } from "zod";
 
 import { Services } from "@/application/service";
 import { projectsSchema } from "@/domain/__generated__/entities";
 import { asyncRoute } from "@/util/route";
+import { validate } from "@/util/validate";
 
 interface CreateProjectRouteDeps {
   services: Services;
@@ -23,6 +25,11 @@ export function createProjectRoutes({ services }: CreateProjectRouteDeps) {
   );
   router.post(
     "/",
+    validate(
+      z.object({
+        body: projectsSchema,
+      }),
+    ),
     asyncRoute(async (req, res) => {
       const validProjectParams = projectsSchema.parse(req.body);
       const project = await services.project.createProject(validProjectParams);
@@ -34,24 +41,28 @@ export function createProjectRoutes({ services }: CreateProjectRouteDeps) {
   );
   router.put(
     "/:id",
+    validate(
+      z.object({
+        body: projectsSchema.partial(),
+      }),
+    ),
     asyncRoute(async (req, res) => {
       const id = Number(req.params.id);
-      const validProjectParams = projectsSchema.parse(req.body);
-      const project = await services.project.updateProject(id, validProjectParams);
+      const project = await services.project.updateProject(id, req.body);
 
       res.status(201).json({
         ...project,
       });
     }),
-    router.delete(
-      "/:id",
-      asyncRoute(async (req, res) => {
-        const id = Number(req.params.id);
-        await services.project.deleteProject(id);
+  );
+  router.delete(
+    "/:id",
+    asyncRoute(async (req, res) => {
+      const id = Number(req.params.id);
+      await services.project.deleteProject(id);
 
-        res.status(204);
-      }),
-    ),
+      res.status(204).send();
+    }),
   );
 
   return router;

@@ -1,5 +1,4 @@
 import type { Repository } from "@/domain";
-import { projectsSchema } from "@/domain/__generated__/entities";
 import type { IProject } from "@/domain/entities/project";
 
 export interface ProjectService {
@@ -18,8 +17,7 @@ export function createProjectService({ repository }: CreateServicesDeps): Projec
 
   return {
     async createProject(params: IProject) {
-      const validProjectParams = projectsSchema.parse(params);
-      const project = await repository.project.createProject(validProjectParams);
+      const project = await repository.project.createProject(params);
       return project;
     },
     async listProjects() {
@@ -27,8 +25,7 @@ export function createProjectService({ repository }: CreateServicesDeps): Projec
       return projects;
     },
     async updateProject(id: number, params: Partial<IProject>) {
-      const validProjectParams = projectsSchema.partial().parse(params);
-      const project = await repository.project.updateProject(id, validProjectParams);
+      const project = await repository.project.updateProject(id, params);
       return project;
     },
     async deleteProject(id: number) {
