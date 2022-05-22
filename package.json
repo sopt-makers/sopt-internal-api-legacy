@@ -9,6 +9,7 @@
     "build": "tsc",
     "clean": "rimraf ./dist",
     "db:type": "sql-ts -c dbconfig.json",
+    "db:gen-entities": "ts-to-zod src/domain/__generated__/psql.ts src/domain/__generated__/entities.ts",
     "db:migrate": "ts-node ./src/infrastructure/database/migrate.ts",
     "lint": "run-s lint:*",
     "lint:eslint": "eslint --ignore-path .gitignore --resolve-plugins-relative-to . --fix .",
@@ -39,6 +40,7 @@
     "rimraf": "^3.0.2",
     "ts-node": "^10.7.0",
     "ts-node-dev": "^1.1.8",
+    "ts-to-zod": "^1.10.0",
     "tsconfig-paths": "^4.0.0",
     "typescript": "^4.6.3"
   },

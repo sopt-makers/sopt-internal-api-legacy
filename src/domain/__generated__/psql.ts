@@ -29,7 +29,7 @@ export interface Projects {
   detail: string;
   end_at?: Date | null;
   generation?: number | null;
-  id: number;
+  id?: number;
   images?: string[] | null;
   is_available?: boolean | null;
   is_founding?: boolean | null;
