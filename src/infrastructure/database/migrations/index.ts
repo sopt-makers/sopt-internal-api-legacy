@@ -49,8 +49,8 @@ export async function up(db: Kysely<any>): Promise<void> {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function down(db: Kysely<any>): Promise<void> {
-  await db.schema.dropTable("projects").execute();
   await db.schema.dropTable("links").execute();
+  await db.schema.dropTable("projects").execute();
   await db.schema.dropTable("users").execute();
   await db.schema.dropTable("project_users").execute();
 }
