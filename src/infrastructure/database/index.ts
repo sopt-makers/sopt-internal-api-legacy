@@ -1,4 +1,5 @@
 import { Kysely, PostgresDialect } from "kysely";
+import { Pool } from "pg";
 
 import { Links, Projects, ProjectUsers, Users } from "@/domain/__generated__/psql";
 
@@ -19,7 +20,9 @@ export function createDatabase({ DATABASE_URI }: CreateDatabaseDeps): Database {
   const db = new Kysely<DatabaseSchema>({
     // TODO: decouple database implementation
     dialect: new PostgresDialect({
-      connectionString: DATABASE_URI,
+      pool: new Pool({
+        connectionString: DATABASE_URI,
+      }),
     }),
   });
 

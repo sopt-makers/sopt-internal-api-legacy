@@ -31,6 +31,7 @@ export async function up(db: Kysely<any>): Promise<void> {
     .createTable("users")
     .addColumn("id", "serial", (col) => col.primaryKey().notNull())
     .addColumn("auth_user_id", "integer", (col) => col.notNull())
+    .addColumn("foo", "integer", (col) => col.notNull())
     .execute();
 
   await db.schema
@@ -43,7 +44,7 @@ export async function up(db: Kysely<any>): Promise<void> {
     .execute();
 
   // TODO: create index
-  // await db.schema.createIndex("pet_owner_id_index").on("pet").column("owner_id").execute();
+  await db.schema.createIndex("users_auth_user_id_index").on("users").column("auth_user_id").execute();
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

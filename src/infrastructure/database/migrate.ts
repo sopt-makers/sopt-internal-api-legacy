@@ -1,23 +1,32 @@
 import dotenv from "dotenv-safe";
-import { FileMigrationProvider, Kysely, Migrator, PostgresDialect } from "kysely";
-import path from "path";
 dotenv.config();
+
+import { promises } from "fs";
+import { FileMigrationProvider, Kysely, Migrator, PostgresDialect } from "kysely";
+import * as path from "path";
+import { Pool } from "pg";
 
 import { DatabaseSchema } from ".";
 
 async function migrateToLatest() {
   const db = new Kysely<DatabaseSchema>({
     dialect: new PostgresDialect({
-      host: "localhost",
-      database: process.env.POSTGRES_DB,
-      user: process.env.POSTGRES_USER,
-      password: process.env.POSTGRES_PASSWORD,
+      pool: new Pool({
+        host: "localhost",
+        database: process.env.POSTGRES_DB,
+        user: process.env.POSTGRES_USER,
+        password: process.env.POSTGRES_PASSWORD,
+      }),
     }),
   });
 
   const migrator = new Migrator({
     db,
-    provider: new FileMigrationProvider(path.resolve(__dirname, "migrations")),
+    provider: new FileMigrationProvider({
+      fs: promises,
+      path,
+      migrationFolder: path.join(__dirname, "migrations"),
+    }),
   });
 
   const { error, results } = await migrator.migrateToLatest();
