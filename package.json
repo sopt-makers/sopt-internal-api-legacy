@@ -19,6 +19,7 @@
     "@types/dotenv-safe": "^8.1.2",
     "@types/express": "^4.17.13",
     "@types/jest": "^27.4.1",
+    "@types/morgan": "^1.9.3",
     "@typescript-eslint/eslint-plugin": "^5.20.0",
     "@typescript-eslint/parser": "^5.20.0",
     "eslint": "^8.13.0",
@@ -45,6 +46,7 @@
     "dotenv-safe": "^8.2.0",
     "express": "^4.17.3",
     "kysely": "^0.18.1",
+    "morgan": "^1.10.0",
     "mysql2": "^2.3.3",
     "pg": "^8.7.3"
   }
