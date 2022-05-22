@@ -3,7 +3,7 @@ import express from "express";
 import { createServices } from "@/application/service";
 import { bootstrap } from "@/infrastructure/config/bootstrap";
 import { createRepository } from "@/infrastructure/repository";
-import { createRoutes } from "@/interfaces/route";
+import { createRoutes } from "@/interfaces/routes";
 
 export async function createServer() {
   const app = express();
