@@ -6,6 +6,7 @@ import { createServices } from "@/application/service";
 import { bootstrap } from "@/infrastructure/config/bootstrap";
 import { createRepository } from "@/infrastructure/repository";
 import { createRoutes } from "@/interfaces/routes";
+import { createProjectRoutes } from "@/interfaces/routes/project";
 import { createUserRoutes } from "@/interfaces/routes/users";
 
 export async function createServer() {
@@ -24,6 +25,7 @@ export async function createServer() {
 
   app.use("/api/v1/hello", createRoutes({ services }));
   app.use("/api/v1/users", createUserRoutes({ services }));
+  app.use("/api/v1/projects", createProjectRoutes({ services }));
 
   return app;
 }

@@ -13,7 +13,7 @@ interface CreateServicesDeps {
   repository: Repository;
 }
 
-export function createUserService({ repository }: CreateServicesDeps): ProjectService {
+export function createProjectService({ repository }: CreateServicesDeps): ProjectService {
   repository;
 
   return {
