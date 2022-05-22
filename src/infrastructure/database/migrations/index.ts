@@ -1,50 +1,51 @@
-import { Kysely, sql } from "kysely";
+import { Kysely } from "kysely";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function up(db: Kysely<any>): Promise<void> {
-  await db.schema
-    .createTable("projects")
-    .addColumn("id", "serial", (col) => col.primaryKey().notNull())
-    .addColumn("name", "text", (col) => col.notNull())
-    .addColumn("generation", "integer")
-    .addColumn("category", "text", (col) => col.notNull())
-    .addColumn("service_type", sql`text[]`, (col) => col.notNull())
-    .addColumn("start_at", "timestamp", (col) => col.notNull())
-    .addColumn("end_at", "timestamp")
-    .addColumn("is_available", "boolean")
-    .addColumn("is_founding", "boolean")
-    .addColumn("summary", "text", (col) => col.notNull())
-    .addColumn("detail", "text", (col) => col.notNull())
-    .addColumn("thumbnail_image", "text", (col) => col.notNull())
-    .addColumn("images", sql`text[]`)
-    .execute();
+  await db.schema.alterTable("project_users").addColumn("is_team_member", "boolean").execute();
 
-  await db.schema
-    .createTable("links")
-    .addColumn("id", "serial", (col) => col.primaryKey().notNull())
-    .addColumn("title", "text", (col) => col.notNull())
-    .addColumn("url", "text", (col) => col.notNull())
-    .addColumn("project_id", "integer", (col) => col.references("projects.id").notNull())
-    .execute();
+  // await db.schema
+  //   .createTable("projects")
+  //   .addColumn("id", "serial", (col) => col.primaryKey().notNull())
+  //   .addColumn("name", "text", (col) => col.notNull())
+  //   .addColumn("generation", "integer")
+  //   .addColumn("category", "text", (col) => col.notNull())
+  //   .addColumn("service_type", sql`text[]`, (col) => col.notNull())
+  //   .addColumn("start_at", "timestamp", (col) => col.notNull())
+  //   .addColumn("end_at", "timestamp")
+  //   .addColumn("is_available", "boolean")
+  //   .addColumn("is_founding", "boolean")
+  //   .addColumn("summary", "text", (col) => col.notNull())
+  //   .addColumn("detail", "text", (col) => col.notNull())
+  //   .addColumn("thumbnail_image", "text", (col) => col.notNull())
+  //   .addColumn("images", sql`text[]`)
+  //   .execute();
 
-  await db.schema
-    .createTable("users")
-    .addColumn("id", "serial", (col) => col.primaryKey().notNull())
-    .addColumn("auth_user_id", "integer", (col) => col.notNull())
-    .addColumn("foo", "integer", (col) => col.notNull())
-    .execute();
+  // await db.schema
+  //   .createTable("links")
+  //   .addColumn("id", "serial", (col) => col.primaryKey().notNull())
+  //   .addColumn("title", "text", (col) => col.notNull())
+  //   .addColumn("url", "text", (col) => col.notNull())
+  //   .addColumn("project_id", "integer", (col) => col.references("projects.id").notNull())
+  //   .execute();
 
-  await db.schema
-    .createTable("project_users")
-    .addColumn("id", "serial", (col) => col.primaryKey().notNull())
-    .addColumn("project_id", "integer", (col) => col.references("projects.id").notNull())
-    .addColumn("user_id", "integer", (col) => col.references("users.id").notNull())
-    .addColumn("role", "text")
-    .addColumn("description", "text")
-    .execute();
+  // await db.schema
+  //   .createTable("users")
+  //   .addColumn("id", "serial", (col) => col.primaryKey().notNull())
+  //   .addColumn("auth_user_id", "integer", (col) => col.notNull())
+  //   .execute();
+
+  // await db.schema
+  //   .createTable("project_users")
+  //   .addColumn("id", "serial", (col) => col.primaryKey().notNull())
+  //   .addColumn("project_id", "integer", (col) => col.references("projects.id").notNull())
+  //   .addColumn("user_id", "integer", (col) => col.references("users.id").notNull())
+  //   .addColumn("role", "text")
+  //   .addColumn("description", "text")
+  //   .execute();
 
   // TODO: create index
-  await db.schema.createIndex("users_auth_user_id_index").on("users").column("auth_user_id").execute();
+  // await db.schema.createIndex("users_auth_user_id_index").on("users").column("auth_user_id").execute();
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
