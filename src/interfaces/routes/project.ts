@@ -3,6 +3,7 @@ import { z } from "zod";
 
 import { Services } from "@/application/service";
 import { projectsSchema } from "@/domain/__generated__/entities";
+import { createProjectController } from "@/interfaces/controllers/projectController";
 import { asyncRoute } from "@/util/route";
 import { validate } from "@/util/validate";
 
@@ -12,17 +13,10 @@ interface CreateProjectRouteDeps {
 
 export function createProjectRoutes({ services }: CreateProjectRouteDeps) {
   const router = Router();
+  const controllers = createProjectController({ services });
 
-  router.get(
-    "/",
-    asyncRoute(async (_req, res) => {
-      const projects = await services.project.listProjects();
+  router.get("/", asyncRoute(controllers.listProjects));
 
-      res.json({
-        projects,
-      });
-    }),
-  );
   router.post(
     "/",
     validate(
@@ -30,15 +24,9 @@ export function createProjectRoutes({ services }: CreateProjectRouteDeps) {
         body: projectsSchema,
       }),
     ),
-    asyncRoute(async (req, res) => {
-      const validProjectParams = projectsSchema.parse(req.body);
-      const project = await services.project.createProject(validProjectParams);
-
-      res.status(201).json({
-        ...project,
-      });
-    }),
+    asyncRoute(controllers.createProject),
   );
+
   router.put(
     "/:id",
     validate(
@@ -46,24 +34,10 @@ export function createProjectRoutes({ services }: CreateProjectRouteDeps) {
         body: projectsSchema.partial(),
       }),
     ),
-    asyncRoute(async (req, res) => {
-      const id = Number(req.params.id);
-      const project = await services.project.updateProject(id, req.body);
-
-      res.status(201).json({
-        ...project,
-      });
-    }),
+    asyncRoute(controllers.updateProject),
   );
-  router.delete(
-    "/:id",
-    asyncRoute(async (req, res) => {
-      const id = Number(req.params.id);
-      await services.project.deleteProject(id);
 
-      res.status(204).send();
-    }),
-  );
+  router.delete("/:id", asyncRoute(controllers.deleteProject));
 
   return router;
 }
