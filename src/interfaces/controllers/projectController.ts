@@ -4,6 +4,7 @@ import { Services } from "@/application/service";
 
 interface ProjectController {
   createProject: (req: Request, res: Response) => Promise<void>;
+  getProject: (req: Request, res: Response) => Promise<void>;
   listProjects: (req: Request, res: Response) => Promise<void>;
   updateProject: (req: Request, res: Response) => Promise<void>;
   deleteProject: (req: Request, res: Response) => Promise<void>;
@@ -19,6 +20,14 @@ export const createProjectController = ({ services }: ProjectControllerDeps): Pr
       const project = await services.project.createProject(req.body);
 
       res.status(201).json({
+        ...project,
+      });
+    },
+    getProject: async (req, res) => {
+      const id = Number(req.params.id);
+      const project = await services.project.getProject(id);
+
+      res.json({
         ...project,
       });
     },

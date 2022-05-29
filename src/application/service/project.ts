@@ -3,6 +3,7 @@ import type { IProject } from "@/domain/entities/project";
 
 export interface ProjectService {
   createProject: (params: IProject) => Promise<IProject | undefined>;
+  getProject: (id: number) => Promise<IProject | undefined>;
   listProjects: () => Promise<IProject[] | undefined>;
   updateProject: (id: number, params: Partial<IProject>) => Promise<IProject | undefined>;
   deleteProject: (id: number) => Promise<{ id: number | undefined } | undefined>;
@@ -18,6 +19,10 @@ export function createProjectService({ repository }: CreateServicesDeps): Projec
   return {
     async createProject(params: IProject) {
       const project = await repository.project.createProject(params);
+      return project;
+    },
+    async getProject(id) {
+      const project = await repository.project.getProject(id);
       return project;
     },
     async listProjects() {

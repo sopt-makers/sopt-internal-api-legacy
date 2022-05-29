@@ -1,4 +1,4 @@
-import express from "express";
+import express, { NextFunction, Request, Response } from "express";
 import logger from "morgan";
 import path from "path";
 
@@ -8,6 +8,7 @@ import { createRepository } from "@/infrastructure/repository";
 import { createRoutes } from "@/interfaces/routes";
 import { createProjectRoutes } from "@/interfaces/routes/project";
 import { createUserRoutes } from "@/interfaces/routes/users";
+import { AppError } from "@/util/error/AppError";
 
 export async function createServer() {
   const app = express();
@@ -26,10 +27,10 @@ export async function createServer() {
   app.use("/api/v1/hello", createRoutes({ services }));
   app.use("/api/v1/users", createUserRoutes({ services }));
   app.use("/api/v1/projects", createProjectRoutes({ services }));
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  app.use((_err, _req, res, _next) => {
-    console.error(_err);
+  app.use((_err: Error, _req: Request, res: Response, _next: NextFunction) => {
+    if (_err instanceof AppError) {
+      return res.status(_err.httpCode).json({ name: _err.name, message: _err.message });
+    }
     return res.status(500).json({ message: "internal error" });
   });
 

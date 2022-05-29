@@ -17,6 +17,8 @@ export function createProjectRoutes({ services }: CreateProjectRouteDeps) {
 
   router.get("/", asyncRoute(controllers.listProjects));
 
+  router.get("/:id", asyncRoute(controllers.getProject));
+
   router.post(
     "/",
     validate(
