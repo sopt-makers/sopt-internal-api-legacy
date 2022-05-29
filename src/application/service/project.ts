@@ -1,9 +1,12 @@
 import type { Repository } from "@/domain";
+import { ILink } from "@/domain/entities/link";
 import type { IProject } from "@/domain/entities/project";
 
 export interface ProjectService {
-  createProject: (params: IProject) => Promise<IProject | undefined>;
-  getProject: (id: number) => Promise<IProject | undefined>;
+  createProject: (
+    params: IProject & { links: Array<Omit<ILink, "id">> },
+  ) => Promise<(IProject & { links: ILink[] }) | undefined>;
+  getProject: (id: number) => Promise<(IProject & { links: ILink[] }) | undefined>;
   listProjects: () => Promise<IProject[] | undefined>;
   updateProject: (id: number, params: Partial<IProject>) => Promise<IProject | undefined>;
   deleteProject: (id: number) => Promise<{ id: number | undefined } | undefined>;
@@ -17,16 +20,23 @@ export function createProjectService({ repository }: CreateServicesDeps): Projec
   repository;
 
   return {
-    async createProject(params: IProject) {
-      const project = await repository.project.createProject(params);
+    async createProject(params) {
+      // TODO: transaction 관리하기 쉬운 구조로 바꾸기...
+      const { links, ...projectParams } = params;
+      const project = await repository.project.createProject(projectParams, (trx, projectId) =>
+        repository.link.createLinks(trx, projectId, links),
+      );
       return project;
     },
     async getProject(id) {
       const project = await repository.project.getProject(id);
-      return project;
+      const links = await repository.link.getLinksByProjectId(project?.id as number);
+      const result = { ...project, links };
+      return result as IProject & { links: ILink[] };
     },
     async listProjects() {
       const projects = await repository.project.listProjects();
+
       return projects;
     },
     async updateProject(id: number, params: Partial<IProject>) {

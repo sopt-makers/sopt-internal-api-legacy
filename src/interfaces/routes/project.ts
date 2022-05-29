@@ -2,7 +2,7 @@ import { Router } from "express";
 import { z } from "zod";
 
 import { Services } from "@/application/service";
-import { projectsSchema } from "@/domain/__generated__/entities";
+import { linksSchema, projectsSchema } from "@/domain/__generated__/entities";
 import { createProjectController } from "@/interfaces/controllers/projectController";
 import { asyncRoute } from "@/util/route";
 import { validate } from "@/util/validate";
@@ -23,7 +23,9 @@ export function createProjectRoutes({ services }: CreateProjectRouteDeps) {
     "/",
     validate(
       z.object({
-        body: projectsSchema,
+        body: projectsSchema.extend({
+          links: z.array(linksSchema.omit({ project_id: true })),
+        }),
       }),
     ),
     asyncRoute(controllers.createProject),

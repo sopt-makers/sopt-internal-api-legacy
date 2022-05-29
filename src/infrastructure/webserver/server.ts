@@ -28,6 +28,7 @@ export async function createServer() {
   app.use("/api/v1/users", createUserRoutes({ services }));
   app.use("/api/v1/projects", createProjectRoutes({ services }));
   app.use((_err: Error, _req: Request, res: Response, _next: NextFunction) => {
+    console.error(_err);
     if (_err instanceof AppError) {
       return res.status(_err.httpCode).json({ name: _err.name, message: _err.message });
     }

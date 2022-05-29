@@ -1,14 +1,15 @@
 import { Kysely, PostgresDialect } from "kysely";
 import { Pool } from "pg";
 
-import { Links, ProjectUsers, Users } from "@/domain/__generated__/psql";
+import { ProjectUsers, Users } from "@/domain/__generated__/psql";
+import { ILink } from "@/domain/entities/link";
 import type { IProject } from "@/domain/entities/project";
 
 export interface DatabaseSchema {
   users: Users;
   projects: IProject;
   project_users: ProjectUsers;
-  links: Links;
+  links: ILink;
 }
 
 export type Database = Kysely<DatabaseSchema>;

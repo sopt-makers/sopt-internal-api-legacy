@@ -1,3 +1,5 @@
+import { ILink } from "@/domain/entities/link";
+import { IProject } from "@/domain/entities/project";
 import { ProjectRepository } from "@/domain/projectRepository";
 import { Database } from "@/infrastructure/database";
 import { AppError } from "@/util/error/AppError";
@@ -5,13 +7,22 @@ import { HttpCode } from "@/util/HttpCode";
 
 export function createProjectRepository(db: Database): ProjectRepository {
   return {
-    async createProject(project) {
-      const result = await db
-        .insertInto("projects")
-        .values({ ...project })
-        .returningAll()
-        .executeTakeFirst();
-      return result;
+    async createProject(project, createLinkCallback) {
+      return await db.transaction().execute(async (trx) => {
+        const createdProject = await trx
+          .insertInto("projects")
+          .values({ ...project })
+          .returningAll()
+          .executeTakeFirst();
+
+        console.log(`project #${createdProject?.id} created!!`);
+        console.log(createdProject);
+
+        const links = await createLinkCallback(trx, createdProject?.id as number);
+
+        const result = { ...createdProject, links };
+        return result as IProject & { links: ILink[] };
+      });
     },
     async getProject(id) {
       const result = await db.selectFrom("projects").selectAll().where("id", "=", id).executeTakeFirst();
