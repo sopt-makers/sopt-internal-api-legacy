@@ -2,10 +2,10 @@
   "client": "postgresql",
   "connection": {
     "host": "localhost",
-    "user": "sopt",
+    "user": "sopt_user",
     "port": "5432",
-    "password": "sopt",
-    "database": "sopt-api"
+    "password": "sopt_password",
+    "database": "sopt_api"
   },
   "interfaceNameFormat": "${table}",
   "tableNameCasing": "pascal",

@@ -1,0 +1,62 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Project {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(255)
+  generation Int?
+  category String
+  service_type String[]
+  start_at DateTime
+  end_at DateTime?
+  is_available Boolean?
+  is_founding Boolean?
+  summary String
+  detail String
+  thumbnail_image String
+  images String[]
+
+  links Link[]
+  users UsersOnProjects[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Link {
+  id     Int     @id @default(autoincrement())
+  project       Project     @relation(fields: [project_id], references: [id])
+  project_id     Int // relation scalar field (used in the `@relation` attribute above)
+
+  title String
+  url String
+}
+
+model UsersOnProjects {
+  id     Int     @id @default(autoincrement())
+  project       Project     @relation(fields: [project_id], references: [id])
+  project_id     Int // relation scalar field (used in the `@relation` attribute above)
+  user   User @relation(fields: [user_id], references: [id])
+  user_id Int // relation scalar field (used in the `@relation` attribute above)
+
+  description String?
+  role String?
+  is_team_member Boolean?
+}
+
+model User {
+  id      Int      @id @default(autoincrement())
+  auth_user_id   Int   @unique
+  name    String
+
+  projects UsersOnProjects[]
+}
