@@ -1,6 +1,6 @@
-import { Users } from "@/domain/__generated__/psql";
+import { User } from "@prisma/client";
 
 export interface UserRepository {
-  getUserByUserId(userId: string): Promise<Users | null>;
-  getUserByAuthUserId(authUserId: string): Promise<Users | null>;
+  getUserByUserId(userId: string): Promise<User | null>;
+  getUserByAuthUserId(authUserId: string): Promise<User | null>;
 }

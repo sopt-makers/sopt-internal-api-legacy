@@ -1,8 +1,9 @@
+import { User } from "@prisma/client";
+
 import type { Repository } from "@/domain";
-import type { Users } from "@/domain/__generated__/psql";
 
 export interface UserService {
-  getUser: (id: string) => Promise<Users | null>;
+  getUser: (id: string) => Promise<User | null>;
 }
 
 interface CreateServicesDeps {

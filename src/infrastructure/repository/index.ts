@@ -1,12 +1,13 @@
+import { PrismaClient } from "@prisma/client";
+
 import { Repository } from "@/domain";
-import { Database } from "@/infrastructure/database";
 import { createProjectRepository } from "@/infrastructure/repository/project";
 import { createUserRepository } from "@/infrastructure/repository/user";
 
 import { createLinkRepository } from "./link";
 
 interface RepositoryDeps {
-  db: Database;
+  db: PrismaClient;
 }
 
 export function createRepository({ db }: RepositoryDeps): Repository {
