@@ -3520,11 +3520,6 @@ knex@^1.0.3:
     tarn "^3.0.2"
     tildify "2.0.0"
 
-kysely@^0.19.2:
-  version "0.19.2"
-  resolved "https://registry.yarnpkg.com/kysely/-/kysely-0.19.2.tgz#2c05a077ffcfde1a809ccee7f51e9a47b02a02ac"
-  integrity sha512-yL8AcRWUDtSeq9+c/hN+k/F7V0mWYnW1k1eKK++YEjN1Jm35SNv/Kh2U1Rl1lgPaguvFjh00VJBH/EBF95m4Hw==
-
 leven@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/leven/-/leven-3.1.0.tgz#77891de834064cccba82ae7842bb6b14a13ed7f2"
