@@ -1,7 +1,7 @@
 import type { UserRepository } from "@/domain/userRepository";
-import { Database } from "@/infrastructure/database";
+import { PrismaDatabase } from "@/infrastructure/database";
 
-export function createUserRepository(db: Database): UserRepository {
+export function createUserRepository(db: PrismaDatabase): UserRepository {
   return {
     async getUserByUserId(userId: string) {
       const ret = await db.user.findUnique({ where: { id: parseInt(userId) } });

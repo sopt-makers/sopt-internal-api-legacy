@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 
-export type Database = PrismaClient;
+export type PrismaDatabase = PrismaClient;
 
 export function createDatabase() {
   const prisma = new PrismaClient();

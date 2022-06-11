@@ -1,7 +1,7 @@
-import { ProjectRepository } from "@/domain/projectRepository";
-import { Database } from "@/infrastructure/database";
+import type { ProjectRepository } from "@/domain/projectRepository";
+import { PrismaDatabase } from "@/infrastructure/database";
 
-export function createProjectRepository(db: Database): ProjectRepository {
+export function createProjectRepository(db: PrismaDatabase): ProjectRepository {
   return {
     async createProject(params) {
       const project = await db.project.create({

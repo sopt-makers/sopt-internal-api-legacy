@@ -1,15 +1,13 @@
+import type { Link, Project } from "@prisma/client";
+
 import type { Repository } from "@/domain";
-import { ILink } from "@/domain/entities/link";
-import type { IProject } from "@/domain/entities/project";
 
 export interface ProjectService {
-  createProject: (
-    params: IProject & { links: Array<Omit<ILink, "id">> },
-  ) => Promise<(IProject & { links: ILink[] }) | undefined>;
-  getProject: (id: number) => Promise<(IProject & { links: ILink[] }) | undefined>;
-  listProjects: () => Promise<IProject[] | undefined>;
-  updateProject: (id: number, params: Partial<IProject>) => Promise<IProject | undefined>;
-  deleteProject: (id: number) => Promise<{ id: number | undefined } | undefined>;
+  createProject: (params: Project & { links: Link[] }) => Promise<Project>;
+  getProject: (id: number) => Promise<Project | null>;
+  listProjects: () => Promise<Project[]>;
+  updateProject: (id: number, params: Partial<Project>) => Promise<Project>;
+  deleteProject: (id: number) => Promise<Project>;
 }
 
 interface CreateServicesDeps {
@@ -21,25 +19,18 @@ export function createProjectService({ repository }: CreateServicesDeps): Projec
 
   return {
     async createProject(params) {
-      // TODO: transaction 관리하기 쉬운 구조로 바꾸기...
-      const { links, ...projectParams } = params;
-      const project = await repository.project.createProject(projectParams, (trx, projectId) =>
-        repository.link.createLinks(trx, projectId, links),
-      );
+      const project = await repository.project.createProject(params);
       return project;
     },
     async getProject(id) {
       const project = await repository.project.getProject(id);
-      const links = await repository.link.getLinksByProjectId(project?.id as number);
-      const result = { ...project, links };
-      return result as IProject & { links: ILink[] };
+      return project;
     },
     async listProjects() {
       const projects = await repository.project.listProjects();
-
       return projects;
     },
-    async updateProject(id: number, params: Partial<IProject>) {
+    async updateProject(id: number, params: Partial<Project>) {
       const project = await repository.project.updateProject(id, params);
       return project;
     },
