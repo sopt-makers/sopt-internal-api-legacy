@@ -1,9 +1,10 @@
 import { Router } from "express";
+import { ProjectModel } from "prisma/zod";
 import { z } from "zod";
 
 import { Services } from "@/application/service";
-import { linksSchema, projectsSchema } from "@/domain/__generated__/entities";
 import { createProjectController } from "@/interfaces/controllers/projectController";
+import { CreateProjectModel } from "@/interfaces/validators/project";
 import { asyncRoute } from "@/util/route";
 import { validate } from "@/util/validate";
 
@@ -23,9 +24,7 @@ export function createProjectRoutes({ services }: CreateProjectRouteDeps) {
     "/",
     validate(
       z.object({
-        body: projectsSchema.extend({
-          links: z.array(linksSchema.omit({ project_id: true })),
-        }),
+        body: CreateProjectModel,
       }),
     ),
     asyncRoute(controllers.createProject),
@@ -35,7 +34,7 @@ export function createProjectRoutes({ services }: CreateProjectRouteDeps) {
     "/:id",
     validate(
       z.object({
-        body: projectsSchema.partial(),
+        body: ProjectModel.partial(),
       }),
     ),
     asyncRoute(controllers.updateProject),

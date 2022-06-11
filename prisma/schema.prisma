@@ -5,6 +5,38 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator zod {
+  provider = "zod-prisma"
+
+  // (default) the directory where generated zod schemas will be saved
+  output = "./zod"
+
+  // (default) Create and export both plain and related models.
+  relationModel            = true
+  // relationModel         = "default" // Do not export model without relations.
+  // relationModel         = false // Do not generate related model
+
+  // (default) Output models using pascal case (ex. UserModel, PostModel)
+  modelCase                = "PascalCase"
+  // modelCase             = "camelCase" // Output models using camel case (ex. userModel, postModel)
+
+  // (default) Suffix to apply to your prisma models when naming Zod schemas
+  modelSuffix              = "Model"
+
+  // useDecimalJs          = false // (default) represent the prisma Decimal type using as a JS number
+  // represent the prisma Decimal type using Decimal.js (as Prisma does)
+  useDecimalJs             = true
+
+  // (default) will import the referenced file in generated schemas to be used via imports.someExportedVariable
+  // imports                  = "customSchema"
+
+  // https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-by-null-values
+  // (default) uses prisma's scheme for JSON field nullability
+  prismaJsonNullability    = true
+  // prismaJsonNullability = false // allows null assignment to optional JSON fields
+}
+
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -17,7 +49,7 @@ model Project {
   category String
   service_type String[]
   start_at DateTime
-  end_at DateTime?
+  end_at DateTime? 
   is_available Boolean?
   is_founding Boolean?
   summary String
@@ -34,7 +66,7 @@ model Project {
 
 model Link {
   id     Int     @id @default(autoincrement())
-  project       Project     @relation(fields: [project_id], references: [id])
+  project       Project     @relation(fields: [project_id], references: [id], onDelete: Cascade)
   project_id     Int // relation scalar field (used in the `@relation` attribute above)
 
   title String

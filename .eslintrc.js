@@ -56,6 +56,7 @@ module.exports = {
       },
     },
   ],
+  ignorePatterns: ["prisma/zod/*"],
   rules: {
     "no-unused-vars": [
       "error",

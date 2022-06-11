@@ -15,7 +15,7 @@ export function createUserService({ repository }: CreateServicesDeps): UserServi
 
   return {
     async getUser(id: string) {
-      const user = await repository.user.getUserByAuthUserId(id);
+      const user = await repository.user.getUserByUserId(id);
       return user;
     },
   };
