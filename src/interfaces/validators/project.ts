@@ -14,3 +14,5 @@ export const CreateProjectModel = ProjectModel.omit({ id: true, createdAt: true,
     start_at: z.string().refine(isIsoDate),
     end_at: z.string().refine(isIsoDate).optional(),
   });
+
+export type CreateProjectModelType = z.infer<typeof CreateProjectModel>;

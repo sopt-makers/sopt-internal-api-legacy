@@ -1,9 +1,9 @@
-import type { Link, Project } from "@prisma/client";
+import type { Prisma, Project } from "@prisma/client";
 
 import type { Repository } from "@/domain";
 
 export interface ProjectService {
-  createProject: (params: Project & { links: Link[] }) => Promise<Project>;
+  createProject: (params: Prisma.ProjectCreateArgs["data"]) => Promise<Project>;
   getProject: (id: number) => Promise<Project | null>;
   listProjects: () => Promise<Project[]>;
   updateProject: (id: number, params: Partial<Project>) => Promise<Project>;

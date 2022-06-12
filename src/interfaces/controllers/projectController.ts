@@ -1,9 +1,11 @@
 import { Request, Response } from "express";
 
 import { Services } from "@/application/service";
+import { CreateProjectModelType } from "@/interfaces/validators/project";
+import { RequestWithBody } from "@/util/CustomRequests";
 
 interface ProjectController {
-  createProject: (req: Request, res: Response) => Promise<void>;
+  createProject: (req: RequestWithBody<CreateProjectModelType>, res: Response) => Promise<void>;
   getProject: (req: Request, res: Response) => Promise<void>;
   listProjects: (req: Request, res: Response) => Promise<void>;
   updateProject: (req: Request, res: Response) => Promise<void>;
