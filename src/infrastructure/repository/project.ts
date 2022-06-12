@@ -23,6 +23,10 @@ export function createProjectRepository(db: PrismaDatabase): ProjectRepository {
             })),
           },
         },
+        include: {
+          links: true,
+          users: true,
+        },
       });
 
       return project;
@@ -32,11 +36,20 @@ export function createProjectRepository(db: PrismaDatabase): ProjectRepository {
         where: {
           id,
         },
+        include: {
+          links: true,
+          users: true,
+        },
       });
       return project;
     },
     async listProjects() {
-      const projects = await db.project.findMany();
+      const projects = await db.project.findMany({
+        include: {
+          links: true,
+          users: true,
+        },
+      });
       return projects;
     },
     async updateProject(id, params) {
@@ -46,6 +59,10 @@ export function createProjectRepository(db: PrismaDatabase): ProjectRepository {
         },
         data: {
           ...params,
+        },
+        include: {
+          links: true,
+          users: true,
         },
       });
       return updatedProject;
