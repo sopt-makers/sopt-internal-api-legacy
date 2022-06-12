@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 
 import { Services } from "@/application/service";
-import { CreateProjectModelType } from "@/interfaces/validators/project";
+import { CreateProjectModelType } from "@/domain/validators/project";
 import { RequestWithBody } from "@/util/CustomRequests";
 
 interface ProjectController {

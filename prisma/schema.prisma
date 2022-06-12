@@ -74,7 +74,6 @@ model Link {
 }
 
 model UsersOnProjects {
-  id     Int     @id @default(autoincrement())
   project       Project     @relation(fields: [project_id], references: [id])
   project_id     Int // relation scalar field (used in the `@relation` attribute above)
   user   User @relation(fields: [user_id], references: [id])
@@ -83,6 +82,8 @@ model UsersOnProjects {
   description String?
   role String?
   is_team_member Boolean?
+
+  @@id([project_id, user_id])
 }
 
 model User {

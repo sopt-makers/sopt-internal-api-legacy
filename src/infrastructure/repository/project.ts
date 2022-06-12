@@ -10,6 +10,18 @@ export function createProjectRepository(db: PrismaDatabase): ProjectRepository {
           links: {
             create: params.links,
           },
+          users: {
+            create: params.users.map((user) => ({
+              description: user.description,
+              role: user.role,
+              is_team_member: user.is_team_member,
+              user: {
+                connect: {
+                  id: user.user_id,
+                },
+              },
+            })),
+          },
         },
       });
 

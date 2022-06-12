@@ -2,7 +2,6 @@ import * as z from "zod";
 import { CompleteProject, RelatedProjectModel, CompleteUser, RelatedUserModel } from "./index";
 
 export const UsersOnProjectsModel = z.object({
-  id: z.number().int(),
   project_id: z.number().int(),
   user_id: z.number().int(),
   description: z.string().nullish(),

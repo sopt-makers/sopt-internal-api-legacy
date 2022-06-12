@@ -5,7 +5,7 @@ import { Services } from "@/application/service";
 import { asyncRoute } from "@/util/route";
 import { validate } from "@/util/validate";
 
-import { CreateUserModel } from "../validators/user";
+import { CreateUserModel } from "../../domain/validators/user";
 
 interface CreateRoutesDeps {
   services: Services;
