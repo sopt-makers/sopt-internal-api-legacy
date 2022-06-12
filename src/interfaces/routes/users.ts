@@ -1,7 +1,11 @@
 import { Router } from "express";
+import { z } from "zod";
 
 import { Services } from "@/application/service";
 import { asyncRoute } from "@/util/route";
+import { validate } from "@/util/validate";
+
+import { CreateUserModel } from "../validators/user";
 
 interface CreateRoutesDeps {
   services: Services;
@@ -24,6 +28,11 @@ export function createUserRoutes({ services }: CreateRoutesDeps) {
 
   router.post(
     "/",
+    validate(
+      z.object({
+        body: CreateUserModel,
+      }),
+    ),
     asyncRoute(async (req, res) => {
       const createdUser = await services.user.createUser(req.body);
       res.json(createdUser);
