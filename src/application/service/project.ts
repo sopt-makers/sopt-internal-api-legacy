@@ -1,13 +1,13 @@
 import type { Project } from "@prisma/client";
 
 import type { Repository } from "@/domain";
-import { CreateProjectModelType } from "@/domain/validators/project";
+import { CreateProjectModelType, UpdateProjectModelType } from "@/domain/validators/project";
 
 export interface ProjectService {
   createProject: (params: CreateProjectModelType) => Promise<Project>;
   getProject: (id: number) => Promise<Project | null>;
   listProjects: () => Promise<Project[]>;
-  updateProject: (id: number, params: Partial<Project>) => Promise<Project>;
+  updateProject: (id: number, params: UpdateProjectModelType) => Promise<Project>;
   deleteProject: (id: number) => Promise<Project>;
 }
 
@@ -31,7 +31,7 @@ export function createProjectService({ repository }: CreateServicesDeps): Projec
       const projects = await repository.project.listProjects();
       return projects;
     },
-    async updateProject(id: number, params: Partial<Project>) {
+    async updateProject(id: number, params) {
       const project = await repository.project.updateProject(id, params);
       return project;
     },

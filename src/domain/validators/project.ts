@@ -15,5 +15,14 @@ export const CreateProjectModel = ProjectModel.omit({ id: true, createdAt: true,
     start_at: z.string().refine(isIsoDate),
     end_at: z.string().refine(isIsoDate).optional(),
   });
-
 export type CreateProjectModelType = z.infer<typeof CreateProjectModel>;
+
+export const UpdateProjectModel = ProjectModel.omit({ id: true, createdAt: true, updatedAt: true })
+  .extend({
+    links: z.array(LinkModel.omit({ project_id: true })),
+    users: z.array(UsersOnProjectsModel.omit({ project_id: true })),
+    start_at: z.string().refine(isIsoDate),
+    end_at: z.string().refine(isIsoDate).optional(),
+  })
+  .partial();
+export type UpdateProjectModelType = z.infer<typeof UpdateProjectModel>;
