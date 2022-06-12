@@ -22,5 +22,13 @@ export function createUserRoutes({ services }: CreateRoutesDeps) {
     }),
   );
 
+  router.post(
+    "/",
+    asyncRoute(async (req, res) => {
+      const createdUser = await services.user.createUser(req.body);
+      res.json(createdUser);
+    }),
+  );
+
   return router;
 }

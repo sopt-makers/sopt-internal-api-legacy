@@ -1,9 +1,10 @@
-import { User } from "@prisma/client";
+import { Prisma, User } from "@prisma/client";
 
 import type { Repository } from "@/domain";
 
 export interface UserService {
   getUser: (id: string) => Promise<User | null>;
+  createUser: (params: Prisma.UserCreateArgs["data"]) => Promise<User>;
 }
 
 interface CreateServicesDeps {
@@ -16,6 +17,10 @@ export function createUserService({ repository }: CreateServicesDeps): UserServi
   return {
     async getUser(id: string) {
       const user = await repository.user.getUserByUserId(id);
+      return user;
+    },
+    async createUser(params) {
+      const user = await repository.user.createUser(params);
       return user;
     },
   };

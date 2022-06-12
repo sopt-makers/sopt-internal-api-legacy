@@ -11,5 +11,13 @@ export function createUserRepository(db: PrismaDatabase): UserRepository {
       const ret = await db.user.findUnique({ where: { id: parseInt(authUserId) } });
       return ret ?? null;
     },
+    async createUser(params) {
+      const user = await db.user.create({
+        data: {
+          ...params,
+        },
+      });
+      return user;
+    },
   };
 }
