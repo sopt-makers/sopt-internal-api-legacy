@@ -19,5 +19,15 @@ export function createUserRepository(db: PrismaDatabase): UserRepository {
       });
       return user;
     },
+    async getUsersByName(name) {
+      const users = await db.user.findMany({
+        where: {
+          name: {
+            search: name,
+          },
+        },
+      });
+      return users;
+    },
   };
 }

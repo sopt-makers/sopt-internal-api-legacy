@@ -6,6 +6,7 @@ import { asyncRoute } from "@/util/route";
 import { validate } from "@/util/validate";
 
 import { CreateUserModel } from "../../domain/validators/user";
+import { createUserController } from "../controllers/uesrController";
 
 interface CreateRoutesDeps {
   services: Services;
@@ -13,18 +14,9 @@ interface CreateRoutesDeps {
 
 export function createUserRoutes({ services }: CreateRoutesDeps) {
   const router = Router();
+  const userController = createUserController({ services });
 
-  router.get(
-    "/:id",
-    asyncRoute(async (req, res) => {
-      const { id } = req.params;
-      const ret = await services.user.getUser(id);
-
-      res.json({
-        user: ret,
-      });
-    }),
-  );
+  router.get("/:id", asyncRoute(userController.getUserById));
 
   router.post(
     "/",
@@ -33,10 +25,21 @@ export function createUserRoutes({ services }: CreateRoutesDeps) {
         body: CreateUserModel,
       }),
     ),
-    asyncRoute(async (req, res) => {
-      const createdUser = await services.user.createUser(req.body);
-      res.json(createdUser);
-    }),
+    asyncRoute(userController.createUser),
+  );
+
+  router.get(
+    "/search",
+    validate(
+      z.object({
+        query: z.object({ name: z.string() }),
+      }),
+    ),
+
+    // TODO: refactor
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    asyncRoute(userController.getUsersByName),
   );
 
   return router;
