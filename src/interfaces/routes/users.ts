@@ -16,7 +16,25 @@ export function createUserRoutes({ services }: CreateRoutesDeps) {
   const router = Router();
   const userController = createUserController({ services });
 
-  router.get("/:id", asyncRoute(userController.getUserById));
+  router.get(
+    "/search",
+    validate(
+      z.object({
+        query: z.object({ name: z.string() }),
+      }),
+    ),
+    asyncRoute(userController.getUsersByName),
+  );
+
+  router.get(
+    "/:id",
+    validate(
+      z.object({
+        params: z.object({ id: z.string() }),
+      }),
+    ),
+    asyncRoute(userController.getUserById),
+  );
 
   router.post(
     "/",
@@ -26,20 +44,6 @@ export function createUserRoutes({ services }: CreateRoutesDeps) {
       }),
     ),
     asyncRoute(userController.createUser),
-  );
-
-  router.get(
-    "/search",
-    validate(
-      z.object({
-        query: z.object({ name: z.string() }),
-      }),
-    ),
-
-    // TODO: refactor
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    asyncRoute(userController.getUsersByName),
   );
 
   return router;

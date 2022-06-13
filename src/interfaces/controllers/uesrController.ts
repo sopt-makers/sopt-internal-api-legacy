@@ -6,7 +6,7 @@ import { CreateUserModelType } from "@/domain/validators/user";
 interface UserController {
   createUser: (req: Request<{}, {}, CreateUserModelType>, res: Response) => Promise<void>;
   getUserById: (req: Request, res: Response) => Promise<void>;
-  getUsersByName: (req: Request<{}, {}, {}, { name: string }>, res: Response) => Promise<void>;
+  getUsersByName: (req: Request, res: Response) => Promise<void>;
 }
 
 interface UserControllerDeps {
@@ -23,7 +23,7 @@ export const createUserController = ({ services }: UserControllerDeps): UserCont
     },
     getUsersByName: async (req, res) => {
       const { name } = req.query;
-      const users = await services.user.getUsersByName(name);
+      const users = await services.user.getUsersByName(name as string);
 
       res.json(users);
     },

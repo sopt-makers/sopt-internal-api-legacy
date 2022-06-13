@@ -14,7 +14,7 @@ interface CreateServicesDeps {
 
 export function createUserService({ repository }: CreateServicesDeps): UserService {
   return {
-    async getUser(id: string) {
+    async getUser(id) {
       const user = await repository.user.getUserByUserId(id);
       return user;
     },

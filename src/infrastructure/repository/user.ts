@@ -3,7 +3,7 @@ import { PrismaDatabase } from "@/infrastructure/database";
 
 export function createUserRepository(db: PrismaDatabase): UserRepository {
   return {
-    async getUserByUserId(userId: string) {
+    async getUserByUserId(userId) {
       const ret = await db.user.findUnique({ where: { id: parseInt(userId) } });
       return ret ?? null;
     },
@@ -22,9 +22,18 @@ export function createUserRepository(db: PrismaDatabase): UserRepository {
     async getUsersByName(name) {
       const users = await db.user.findMany({
         where: {
-          name: {
-            search: name,
-          },
+          OR: [
+            {
+              name: {
+                contains: name,
+              },
+            },
+            {
+              name: {
+                startsWith: name,
+              },
+            },
+          ],
         },
       });
       return users;
