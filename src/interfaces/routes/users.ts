@@ -26,15 +26,7 @@ export function createUserRoutes({ services }: CreateRoutesDeps) {
     asyncRoute(userController.getUsersByName),
   );
 
-  router.get(
-    "/:id",
-    validate(
-      z.object({
-        params: z.object({ id: z.string() }),
-      }),
-    ),
-    asyncRoute(userController.getUserById),
-  );
+  router.get("/:id", asyncRoute(userController.getUserById));
 
   router.post(
     "/",
