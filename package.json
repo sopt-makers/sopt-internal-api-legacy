@@ -8,8 +8,10 @@
     "dev": "ts-node-dev --respawn --exit-child -r tsconfig-paths/register ./src/index.ts",
     "build": "tsc",
     "clean": "rimraf ./dist",
-    "db:generate": "prisma generate",
-    "db:migrate": "prisma migrate dev",
+    "generate": "prisma generate",
+    "migrate:dev": "prisma migrate dev",
+    "migrate:deploy": "prisma migrate deploy",
+    "migrate:reset": "prisma migrate reset",
     "lint": "run-s lint:*",
     "lint:eslint": "eslint --ignore-path .gitignore --resolve-plugins-relative-to . --fix .",
     "lint:prettier": "prettier --ignore-path .gitignore --write ."

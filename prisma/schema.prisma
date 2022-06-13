@@ -91,6 +91,7 @@ model User {
   id      Int      @id @default(autoincrement())
   auth_user_id   Int   @unique
   name    String
+  generation Int
 
   projects UsersOnProjects[]
 }

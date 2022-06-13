@@ -5,6 +5,7 @@ export const UserModel = z.object({
   id: z.number().int(),
   auth_user_id: z.number().int(),
   name: z.string(),
+  generation: z.number().int(),
 });
 
 export interface CompleteUser extends z.infer<typeof UserModel> {
