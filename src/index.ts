@@ -1,3 +1,5 @@
+import dotenv from "dotenv-safe";
+dotenv.config();
 import { PORT } from "@/infrastructure/config/const";
 import { createServer } from "@/infrastructure/webserver/server";
 

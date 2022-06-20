@@ -5,6 +5,7 @@ import path from "path";
 import { createServices } from "@/application/service";
 import { bootstrap } from "@/infrastructure/config/bootstrap";
 import { createRepository } from "@/infrastructure/repository";
+import { createPresignedUrlRoutes } from "@/interfaces/routes/presignedUrl";
 import { createProjectRoutes } from "@/interfaces/routes/project";
 import { createUserRoutes } from "@/interfaces/routes/users";
 import { handleError } from "@/util/error/handleError";
@@ -25,6 +26,7 @@ export async function createServer() {
 
   app.use("/api/v1/users", createUserRoutes({ services }));
   app.use("/api/v1/projects", createProjectRoutes({ services }));
+  app.use("/api/v1/presigned-url", createPresignedUrlRoutes());
 
   app.use(handleError);
 
