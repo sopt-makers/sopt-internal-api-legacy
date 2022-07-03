@@ -2,10 +2,10 @@ import * as z from "zod";
 import { CompleteProject, RelatedProjectModel } from "./index";
 
 export const LinkModel = z.object({
-  id: z.number().int(),
   project_id: z.number().int(),
   title: z.string(),
   url: z.string(),
+  id: z.number().int(),
 });
 
 export interface CompleteLink extends z.infer<typeof LinkModel> {
