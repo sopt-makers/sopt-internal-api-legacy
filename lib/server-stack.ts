@@ -1,6 +1,6 @@
 import * as cdk from "aws-cdk-lib";
 import * as ec2 from "aws-cdk-lib/aws-ec2";
-// import * as rds from 'aws-cdk-lib/aws-rds';
+import * as rds from "aws-cdk-lib/aws-rds";
 
 export class CdkStarterStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
@@ -26,14 +26,14 @@ export class CdkStarterStack extends cdk.Stack {
     });
 
     // 👇 create a security group for the EC2 instance
-    const ec2InstanceSG = new ec2.SecurityGroup(this, "ec2-instance-sg", {
+    const ec2InstanceSG = new ec2.SecurityGroup(this, "api-server-ec2-instance-sg", {
       vpc,
     });
 
     ec2InstanceSG.addIngressRule(ec2.Peer.anyIpv4(), ec2.Port.tcp(22), "allow SSH connections from anywhere");
 
     // 👇 create the EC2 instance
-    const ec2Instance = new ec2.Instance(this, "ec2-instance", {
+    const ec2Instance = new ec2.Instance(this, "api-server-ec2-instance", {
       vpc,
       vpcSubnets: {
         subnetType: ec2.SubnetType.PUBLIC,
@@ -44,6 +44,40 @@ export class CdkStarterStack extends cdk.Stack {
         generation: ec2.AmazonLinuxGeneration.AMAZON_LINUX_2,
       }),
       keyName: "sopt-core-key-pair",
+    });
+
+    // 👇 create RDS instance
+    const dbInstance = new rds.DatabaseInstance(this, "sopt-core-db-instance", {
+      vpc,
+      vpcSubnets: {
+        subnetType: ec2.SubnetType.PRIVATE_ISOLATED,
+      },
+      engine: rds.DatabaseInstanceEngine.postgres({
+        version: rds.PostgresEngineVersion.VER_14_2,
+      }),
+      instanceType: ec2.InstanceType.of(ec2.InstanceClass.T4G, ec2.InstanceSize.MICRO),
+      credentials: rds.Credentials.fromGeneratedSecret("postgres"),
+      multiAz: false,
+      allocatedStorage: 100,
+      maxAllocatedStorage: 105,
+      allowMajorVersionUpgrade: false,
+      autoMinorVersionUpgrade: true,
+      backupRetention: cdk.Duration.days(0),
+      deleteAutomatedBackups: true,
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
+      deletionProtection: false,
+      databaseName: "sopt-core-db",
+      publiclyAccessible: false,
+    });
+
+    dbInstance.connections.allowFrom(ec2Instance, ec2.Port.tcp(5432));
+
+    new cdk.CfnOutput(this, "dbEndpoint", {
+      value: dbInstance.instanceEndpoint.hostname,
+    });
+
+    new cdk.CfnOutput(this, "secretName", {
+      value: dbInstance.secret?.secretName as string,
     });
   }
 }
