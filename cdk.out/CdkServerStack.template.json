@@ -364,6 +364,13 @@
       "FromPort": 22,
       "IpProtocol": "tcp",
       "ToPort": 22
+     },
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "allow TCP connection on PORT 4000 from anywhere",
+      "FromPort": 4000,
+      "IpProtocol": "tcp",
+      "ToPort": 4000
      }
     ],
     "VpcId": {

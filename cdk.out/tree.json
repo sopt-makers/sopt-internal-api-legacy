@@ -548,6 +548,13 @@
                         "fromPort": 22,
                         "toPort": 22,
                         "description": "allow SSH connections from anywhere"
+                      },
+                      {
+                        "cidrIp": "0.0.0.0/0",
+                        "ipProtocol": "tcp",
+                        "fromPort": 4000,
+                        "toPort": 4000,
+                        "description": "allow TCP connection on PORT 4000 from anywhere"
                       }
                     ],
                     "vpcId": {
