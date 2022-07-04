@@ -10,7 +10,7 @@ COPY prisma/ ./
 COPY yarn.lock ./
 
 # Install deps
-RUN yarn install
+RUN yarn install --frozen-lockfile
 
 # Copy source
 COPY src ./src
