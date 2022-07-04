@@ -39,7 +39,7 @@ export class ServerStack extends cdk.Stack {
         subnetType: ec2.SubnetType.PUBLIC,
       },
       securityGroup: ec2InstanceSG,
-      instanceType: ec2.InstanceType.of(ec2.InstanceClass.T4G, ec2.InstanceSize.MICRO),
+      instanceType: ec2.InstanceType.of(ec2.InstanceClass.BURSTABLE3, ec2.InstanceSize.MICRO),
       machineImage: new ec2.AmazonLinuxImage({
         generation: ec2.AmazonLinuxGeneration.AMAZON_LINUX_2,
       }),
@@ -55,7 +55,7 @@ export class ServerStack extends cdk.Stack {
       engine: rds.DatabaseInstanceEngine.postgres({
         version: rds.PostgresEngineVersion.VER_14_2,
       }),
-      instanceType: ec2.InstanceType.of(ec2.InstanceClass.T4G, ec2.InstanceSize.MICRO),
+      instanceType: ec2.InstanceType.of(ec2.InstanceClass.BURSTABLE3, ec2.InstanceSize.MICRO),
       credentials: rds.Credentials.fromGeneratedSecret("postgres"),
       multiAz: false,
       allocatedStorage: 100,
@@ -66,7 +66,7 @@ export class ServerStack extends cdk.Stack {
       deleteAutomatedBackups: true,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
       deletionProtection: false,
-      databaseName: "sopt-core-db",
+      databaseName: "soptCoreDB",
       publiclyAccessible: false,
     });
 
