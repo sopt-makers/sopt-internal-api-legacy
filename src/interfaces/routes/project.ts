@@ -1,5 +1,4 @@
 import { Router } from "express";
-import { ProjectModel } from "prisma/zod";
 import { z } from "zod";
 
 import { Services } from "@/application/service";
@@ -7,6 +6,7 @@ import { CreateProjectModel } from "@/domain/validators/project";
 import { createProjectController } from "@/interfaces/controllers/projectController";
 import { asyncRoute } from "@/util/route";
 import { validate } from "@/util/validate";
+import { ProjectModel } from "~/models";
 
 interface CreateProjectRouteDeps {
   services: Services;

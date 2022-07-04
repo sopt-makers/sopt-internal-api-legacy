@@ -4,9 +4,13 @@ services:
     build:
       context: .
     ports:
-      - "3000:3000"
+      - "4000:4000"
     environment:
       NODE_ENV: development
+      DATABASE_URL: postgresql://sopt_user:sopt_password@db/sopt_api
+      PORT: 4000
+    depends_on:
+      - db
   db:
     image: postgres:14.2-alpine
     ports:

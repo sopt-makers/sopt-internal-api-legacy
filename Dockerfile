@@ -1,13 +1,10 @@
 
 FROM node:16-alpine as base
 
-# Create app directory
-WORKDIR /app
-
 # Add package file
 COPY package.json ./
-COPY prisma/ ./
 COPY yarn.lock ./
+COPY prisma/ ./prisma/
 
 # Install deps
 RUN yarn install --frozen-lockfile
@@ -17,19 +14,21 @@ COPY src ./src
 COPY tsconfig.json ./tsconfig.json
 
 # Build dist
+RUN yarn generate
 RUN yarn build
 
 # Start production image build
 FROM node:16-alpine
 
 # Copy node modules and build directory
-COPY --from=base ./node_modules ./node_modules
-COPY --from=base /app/package*.json ./
-COPY --from=base /dist /dist
+COPY --from=base ./node_modules/ ./node_modules/
+COPY --from=base ./package.json ./
+COPY --from=base ./yarn.lock ./
+COPY --from=base ./dist/ ./dist/
+COPY ./.env ./
 
 # Copy static files
 # COPY src/public dist/src/public
 
-# Expose port 3000
-EXPOSE 3000
+EXPOSE 4000
 CMD ["yarn", "start"]

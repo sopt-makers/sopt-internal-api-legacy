@@ -31,6 +31,11 @@ export class ServerStack extends cdk.Stack {
     });
 
     ec2InstanceSG.addIngressRule(ec2.Peer.anyIpv4(), ec2.Port.tcp(22), "allow SSH connections from anywhere");
+    ec2InstanceSG.addIngressRule(
+      ec2.Peer.anyIpv4(),
+      ec2.Port.tcp(4000),
+      "allow TCP connection on PORT 4000 from anywhere",
+    );
 
     // 👇 create the EC2 instance
     const ec2Instance = new ec2.Instance(this, "api-server-ec2-instance", {

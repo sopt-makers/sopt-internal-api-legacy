@@ -1,7 +1,7 @@
-import { LinkModel, ProjectModel, UsersOnProjectsModel } from "prisma/zod";
 import { z } from "zod";
 
 import { isIsoDate } from "@/util/regex";
+import { LinkModel, ProjectModel, UsersOnProjectsModel } from "~/models";
 
 export const CreateProjectModel = ProjectModel.omit({ id: true, createdAt: true, updatedAt: true })
   .partial({

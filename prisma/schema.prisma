@@ -5,7 +5,7 @@ generator client {
 
 generator zod {
   provider              = "zod-prisma"
-  output                = "./zod"
+  output                = "./models"
   useDecimalJs          = "true"
   modelCase             = "PascalCase"
   prismaJsonNullability = "true"

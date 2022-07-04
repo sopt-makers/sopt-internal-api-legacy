@@ -1,5 +1,5 @@
-import dotenv from "dotenv-safe";
-dotenv.config();
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+require("dotenv").config();
 import { PORT } from "@/infrastructure/config/const";
 import { createServer } from "@/infrastructure/webserver/server";
 
