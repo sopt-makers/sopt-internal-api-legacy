@@ -1,4 +1,4 @@
-import type { Project } from "@prisma/client";
+import type { Link, Project } from "@prisma/client";
 
 import type { Repository } from "@/domain";
 import { CreateProjectModelType, UpdateProjectModelType } from "@/domain/validators/project";
@@ -6,7 +6,7 @@ import { CreateProjectModelType, UpdateProjectModelType } from "@/domain/validat
 export interface ProjectService {
   createProject: (params: CreateProjectModelType) => Promise<Project>;
   getProject: (id: number) => Promise<Project | null>;
-  listProjects: () => Promise<Array<Partial<Project>>>;
+  listProjects: () => Promise<Array<Partial<Project> & { links: Link[] }>>;
   updateProject: (id: number, params: UpdateProjectModelType) => Promise<Project>;
   deleteProject: (id: number) => Promise<Project>;
 }

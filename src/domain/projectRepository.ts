@@ -5,7 +5,7 @@ import { CreateProjectModelType, UpdateProjectModelType } from "@/domain/validat
 export interface ProjectRepository {
   createProject(params: CreateProjectModelType): Promise<Project & { links: Link[]; users: UsersOnProjects[] }>;
   getProject(id: number): Promise<(Project & { links: Link[]; users: UsersOnProjects[] }) | null>;
-  listProjects(): Promise<Array<Partial<Project>>>;
+  listProjects(): Promise<Array<Partial<Project> & { links: Link[] }>>;
   updateProject(
     id: number,
     params: UpdateProjectModelType,

@@ -60,6 +60,7 @@ export function createProjectRepository(db: PrismaDatabase): ProjectRepository {
           service_type: true,
           summary: true,
           thumbnail_image: true,
+          links: true,
         },
       });
       return projects;
