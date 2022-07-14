@@ -52,9 +52,14 @@ export function createProjectRepository(db: PrismaDatabase): ProjectRepository {
     },
     async listProjects() {
       const projects = await db.project.findMany({
-        include: {
-          links: true,
-          users: true,
+        select: {
+          id: true,
+          name: true,
+          generation: true,
+          category: true,
+          service_type: true,
+          summary: true,
+          thumbnail_image: true,
         },
       });
       return projects;

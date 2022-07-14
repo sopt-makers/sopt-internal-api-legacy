@@ -6,7 +6,7 @@ import { CreateProjectModelType, UpdateProjectModelType } from "@/domain/validat
 export interface ProjectService {
   createProject: (params: CreateProjectModelType) => Promise<Project>;
   getProject: (id: number) => Promise<Project | null>;
-  listProjects: () => Promise<Project[]>;
+  listProjects: () => Promise<Array<Partial<Project>>>;
   updateProject: (id: number, params: UpdateProjectModelType) => Promise<Project>;
   deleteProject: (id: number) => Promise<Project>;
 }
