@@ -1,912 +1,946 @@
 {
-  "Resources": {
-    "soptcorevpc91D42E6C": {
-      "Type": "AWS::EC2::VPC",
-      "Properties": {
-        "CidrBlock": "10.0.0.0/16",
-        "EnableDnsHostnames": true,
-        "EnableDnsSupport": true,
-        "InstanceTenancy": "default",
-        "Tags": [
-          {
-            "Key": "Name",
-            "Value": "CdkServerStack/sopt-core-vpc"
-          }
-        ]
-      },
-      "Metadata": {
-        "aws:cdk:path": "CdkServerStack/sopt-core-vpc/Resource"
-      }
-    },
-    "soptcorevpcpublicsubnet1Subnet1Subnet6EDDD63E": {
-      "Type": "AWS::EC2::Subnet",
-      "Properties": {
-        "VpcId": {
-          "Ref": "soptcorevpc91D42E6C"
-        },
-        "AvailabilityZone": {
-          "Fn::Select": [
-            0,
-            {
-              "Fn::GetAZs": ""
-            }
-          ]
-        },
-        "CidrBlock": "10.0.0.0/24",
-        "MapPublicIpOnLaunch": true,
-        "Tags": [
-          {
-            "Key": "aws-cdk:subnet-name",
-            "Value": "public-subnet-1"
-          },
-          {
-            "Key": "aws-cdk:subnet-type",
-            "Value": "Public"
-          },
-          {
-            "Key": "Name",
-            "Value": "CdkServerStack/sopt-core-vpc/public-subnet-1Subnet1"
-          }
-        ]
-      },
-      "Metadata": {
-        "aws:cdk:path": "CdkServerStack/sopt-core-vpc/public-subnet-1Subnet1/Subnet"
-      }
-    },
-    "soptcorevpcpublicsubnet1Subnet1RouteTableBC77E4C6": {
-      "Type": "AWS::EC2::RouteTable",
-      "Properties": {
-        "VpcId": {
-          "Ref": "soptcorevpc91D42E6C"
-        },
-        "Tags": [
-          {
-            "Key": "Name",
-            "Value": "CdkServerStack/sopt-core-vpc/public-subnet-1Subnet1"
-          }
-        ]
-      },
-      "Metadata": {
-        "aws:cdk:path": "CdkServerStack/sopt-core-vpc/public-subnet-1Subnet1/RouteTable"
-      }
-    },
-    "soptcorevpcpublicsubnet1Subnet1RouteTableAssociation1C6D8DC7": {
-      "Type": "AWS::EC2::SubnetRouteTableAssociation",
-      "Properties": {
-        "RouteTableId": {
-          "Ref": "soptcorevpcpublicsubnet1Subnet1RouteTableBC77E4C6"
-        },
-        "SubnetId": {
-          "Ref": "soptcorevpcpublicsubnet1Subnet1Subnet6EDDD63E"
-        }
-      },
-      "Metadata": {
-        "aws:cdk:path": "CdkServerStack/sopt-core-vpc/public-subnet-1Subnet1/RouteTableAssociation"
-      }
-    },
-    "soptcorevpcpublicsubnet1Subnet1DefaultRouteCD992188": {
-      "Type": "AWS::EC2::Route",
-      "Properties": {
-        "RouteTableId": {
-          "Ref": "soptcorevpcpublicsubnet1Subnet1RouteTableBC77E4C6"
-        },
-        "DestinationCidrBlock": "0.0.0.0/0",
-        "GatewayId": {
-          "Ref": "soptcorevpcIGW69CA2CF3"
-        }
-      },
-      "DependsOn": ["soptcorevpcVPCGWFA20B8B8"],
-      "Metadata": {
-        "aws:cdk:path": "CdkServerStack/sopt-core-vpc/public-subnet-1Subnet1/DefaultRoute"
-      }
-    },
-    "soptcorevpcpublicsubnet1Subnet2Subnet0F1B6115": {
-      "Type": "AWS::EC2::Subnet",
-      "Properties": {
-        "VpcId": {
-          "Ref": "soptcorevpc91D42E6C"
-        },
-        "AvailabilityZone": {
-          "Fn::Select": [
-            1,
-            {
-              "Fn::GetAZs": ""
-            }
-          ]
-        },
-        "CidrBlock": "10.0.1.0/24",
-        "MapPublicIpOnLaunch": true,
-        "Tags": [
-          {
-            "Key": "aws-cdk:subnet-name",
-            "Value": "public-subnet-1"
-          },
-          {
-            "Key": "aws-cdk:subnet-type",
-            "Value": "Public"
-          },
-          {
-            "Key": "Name",
-            "Value": "CdkServerStack/sopt-core-vpc/public-subnet-1Subnet2"
-          }
-        ]
-      },
-      "Metadata": {
-        "aws:cdk:path": "CdkServerStack/sopt-core-vpc/public-subnet-1Subnet2/Subnet"
-      }
-    },
-    "soptcorevpcpublicsubnet1Subnet2RouteTable7456ABA6": {
-      "Type": "AWS::EC2::RouteTable",
-      "Properties": {
-        "VpcId": {
-          "Ref": "soptcorevpc91D42E6C"
-        },
-        "Tags": [
-          {
-            "Key": "Name",
-            "Value": "CdkServerStack/sopt-core-vpc/public-subnet-1Subnet2"
-          }
-        ]
-      },
-      "Metadata": {
-        "aws:cdk:path": "CdkServerStack/sopt-core-vpc/public-subnet-1Subnet2/RouteTable"
-      }
-    },
-    "soptcorevpcpublicsubnet1Subnet2RouteTableAssociationFCD62BB6": {
-      "Type": "AWS::EC2::SubnetRouteTableAssociation",
-      "Properties": {
-        "RouteTableId": {
-          "Ref": "soptcorevpcpublicsubnet1Subnet2RouteTable7456ABA6"
-        },
-        "SubnetId": {
-          "Ref": "soptcorevpcpublicsubnet1Subnet2Subnet0F1B6115"
-        }
-      },
-      "Metadata": {
-        "aws:cdk:path": "CdkServerStack/sopt-core-vpc/public-subnet-1Subnet2/RouteTableAssociation"
-      }
-    },
-    "soptcorevpcpublicsubnet1Subnet2DefaultRoute00489820": {
-      "Type": "AWS::EC2::Route",
-      "Properties": {
-        "RouteTableId": {
-          "Ref": "soptcorevpcpublicsubnet1Subnet2RouteTable7456ABA6"
-        },
-        "DestinationCidrBlock": "0.0.0.0/0",
-        "GatewayId": {
-          "Ref": "soptcorevpcIGW69CA2CF3"
-        }
-      },
-      "DependsOn": ["soptcorevpcVPCGWFA20B8B8"],
-      "Metadata": {
-        "aws:cdk:path": "CdkServerStack/sopt-core-vpc/public-subnet-1Subnet2/DefaultRoute"
-      }
-    },
-    "soptcorevpcisolatedsubnet1Subnet1SubnetDADC0BD4": {
-      "Type": "AWS::EC2::Subnet",
-      "Properties": {
-        "VpcId": {
-          "Ref": "soptcorevpc91D42E6C"
-        },
-        "AvailabilityZone": {
-          "Fn::Select": [
-            0,
-            {
-              "Fn::GetAZs": ""
-            }
-          ]
-        },
-        "CidrBlock": "10.0.2.0/28",
-        "MapPublicIpOnLaunch": false,
-        "Tags": [
-          {
-            "Key": "aws-cdk:subnet-name",
-            "Value": "isolated-subnet-1"
-          },
-          {
-            "Key": "aws-cdk:subnet-type",
-            "Value": "Isolated"
-          },
-          {
-            "Key": "Name",
-            "Value": "CdkServerStack/sopt-core-vpc/isolated-subnet-1Subnet1"
-          }
-        ]
-      },
-      "Metadata": {
-        "aws:cdk:path": "CdkServerStack/sopt-core-vpc/isolated-subnet-1Subnet1/Subnet"
-      }
-    },
-    "soptcorevpcisolatedsubnet1Subnet1RouteTable9D31C1EA": {
-      "Type": "AWS::EC2::RouteTable",
-      "Properties": {
-        "VpcId": {
-          "Ref": "soptcorevpc91D42E6C"
-        },
-        "Tags": [
-          {
-            "Key": "Name",
-            "Value": "CdkServerStack/sopt-core-vpc/isolated-subnet-1Subnet1"
-          }
-        ]
-      },
-      "Metadata": {
-        "aws:cdk:path": "CdkServerStack/sopt-core-vpc/isolated-subnet-1Subnet1/RouteTable"
-      }
-    },
-    "soptcorevpcisolatedsubnet1Subnet1RouteTableAssociation6A586872": {
-      "Type": "AWS::EC2::SubnetRouteTableAssociation",
-      "Properties": {
-        "RouteTableId": {
-          "Ref": "soptcorevpcisolatedsubnet1Subnet1RouteTable9D31C1EA"
-        },
-        "SubnetId": {
-          "Ref": "soptcorevpcisolatedsubnet1Subnet1SubnetDADC0BD4"
-        }
-      },
-      "Metadata": {
-        "aws:cdk:path": "CdkServerStack/sopt-core-vpc/isolated-subnet-1Subnet1/RouteTableAssociation"
-      }
-    },
-    "soptcorevpcisolatedsubnet1Subnet2Subnet700ABE1A": {
-      "Type": "AWS::EC2::Subnet",
-      "Properties": {
-        "VpcId": {
-          "Ref": "soptcorevpc91D42E6C"
-        },
-        "AvailabilityZone": {
-          "Fn::Select": [
-            1,
-            {
-              "Fn::GetAZs": ""
-            }
-          ]
-        },
-        "CidrBlock": "10.0.2.16/28",
-        "MapPublicIpOnLaunch": false,
-        "Tags": [
-          {
-            "Key": "aws-cdk:subnet-name",
-            "Value": "isolated-subnet-1"
-          },
-          {
-            "Key": "aws-cdk:subnet-type",
-            "Value": "Isolated"
-          },
-          {
-            "Key": "Name",
-            "Value": "CdkServerStack/sopt-core-vpc/isolated-subnet-1Subnet2"
-          }
-        ]
-      },
-      "Metadata": {
-        "aws:cdk:path": "CdkServerStack/sopt-core-vpc/isolated-subnet-1Subnet2/Subnet"
-      }
-    },
-    "soptcorevpcisolatedsubnet1Subnet2RouteTable2694CDEE": {
-      "Type": "AWS::EC2::RouteTable",
-      "Properties": {
-        "VpcId": {
-          "Ref": "soptcorevpc91D42E6C"
-        },
-        "Tags": [
-          {
-            "Key": "Name",
-            "Value": "CdkServerStack/sopt-core-vpc/isolated-subnet-1Subnet2"
-          }
-        ]
-      },
-      "Metadata": {
-        "aws:cdk:path": "CdkServerStack/sopt-core-vpc/isolated-subnet-1Subnet2/RouteTable"
-      }
-    },
-    "soptcorevpcisolatedsubnet1Subnet2RouteTableAssociation358388A5": {
-      "Type": "AWS::EC2::SubnetRouteTableAssociation",
-      "Properties": {
-        "RouteTableId": {
-          "Ref": "soptcorevpcisolatedsubnet1Subnet2RouteTable2694CDEE"
-        },
-        "SubnetId": {
-          "Ref": "soptcorevpcisolatedsubnet1Subnet2Subnet700ABE1A"
-        }
-      },
-      "Metadata": {
-        "aws:cdk:path": "CdkServerStack/sopt-core-vpc/isolated-subnet-1Subnet2/RouteTableAssociation"
-      }
-    },
-    "soptcorevpcIGW69CA2CF3": {
-      "Type": "AWS::EC2::InternetGateway",
-      "Properties": {
-        "Tags": [
-          {
-            "Key": "Name",
-            "Value": "CdkServerStack/sopt-core-vpc"
-          }
-        ]
-      },
-      "Metadata": {
-        "aws:cdk:path": "CdkServerStack/sopt-core-vpc/IGW"
-      }
-    },
-    "soptcorevpcVPCGWFA20B8B8": {
-      "Type": "AWS::EC2::VPCGatewayAttachment",
-      "Properties": {
-        "VpcId": {
-          "Ref": "soptcorevpc91D42E6C"
-        },
-        "InternetGatewayId": {
-          "Ref": "soptcorevpcIGW69CA2CF3"
-        }
-      },
-      "Metadata": {
-        "aws:cdk:path": "CdkServerStack/sopt-core-vpc/VPCGW"
-      }
-    },
-    "apiserverec2instancesgB63EA314": {
-      "Type": "AWS::EC2::SecurityGroup",
-      "Properties": {
-        "GroupDescription": "CdkServerStack/api-server-ec2-instance-sg",
-        "SecurityGroupEgress": [
-          {
-            "CidrIp": "0.0.0.0/0",
-            "Description": "Allow all outbound traffic by default",
-            "IpProtocol": "-1"
-          }
-        ],
-        "SecurityGroupIngress": [
-          {
-            "CidrIp": "0.0.0.0/0",
-            "Description": "allow SSH connections from anywhere",
-            "FromPort": 22,
-            "IpProtocol": "tcp",
-            "ToPort": 22
-          },
-          {
-            "CidrIp": "0.0.0.0/0",
-            "Description": "allow TCP connection on PORT 4000 from anywhere",
-            "FromPort": 4000,
-            "IpProtocol": "tcp",
-            "ToPort": 4000
-          }
-        ],
-        "VpcId": {
-          "Ref": "soptcorevpc91D42E6C"
-        }
-      },
-      "Metadata": {
-        "aws:cdk:path": "CdkServerStack/api-server-ec2-instance-sg/Resource"
-      }
-    },
-    "apiserverec2instanceInstanceRole29D2A889": {
-      "Type": "AWS::IAM::Role",
-      "Properties": {
-        "AssumeRolePolicyDocument": {
-          "Statement": [
-            {
-              "Action": "sts:AssumeRole",
-              "Effect": "Allow",
-              "Principal": {
-                "Service": {
-                  "Fn::Join": [
-                    "",
-                    [
-                      "ec2.",
-                      {
-                        "Ref": "AWS::URLSuffix"
-                      }
-                    ]
-                  ]
-                }
-              }
-            }
-          ],
-          "Version": "2012-10-17"
-        },
-        "Tags": [
-          {
-            "Key": "Name",
-            "Value": "CdkServerStack/api-server-ec2-instance"
-          }
-        ]
-      },
-      "Metadata": {
-        "aws:cdk:path": "CdkServerStack/api-server-ec2-instance/InstanceRole/Resource"
-      }
-    },
-    "apiserverec2instanceInstanceProfile74C395D5": {
-      "Type": "AWS::IAM::InstanceProfile",
-      "Properties": {
-        "Roles": [
-          {
-            "Ref": "apiserverec2instanceInstanceRole29D2A889"
-          }
-        ]
-      },
-      "Metadata": {
-        "aws:cdk:path": "CdkServerStack/api-server-ec2-instance/InstanceProfile"
-      }
-    },
-    "apiserverec2instance4262AA0D": {
-      "Type": "AWS::EC2::Instance",
-      "Properties": {
-        "AvailabilityZone": {
-          "Fn::Select": [
-            0,
-            {
-              "Fn::GetAZs": ""
-            }
-          ]
-        },
-        "IamInstanceProfile": {
-          "Ref": "apiserverec2instanceInstanceProfile74C395D5"
-        },
-        "ImageId": {
-          "Ref": "SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter"
-        },
-        "InstanceType": "t3.micro",
-        "KeyName": "sopt-core-key-pair",
-        "SecurityGroupIds": [
-          {
-            "Fn::GetAtt": ["apiserverec2instancesgB63EA314", "GroupId"]
-          }
-        ],
-        "SubnetId": {
-          "Ref": "soptcorevpcpublicsubnet1Subnet1Subnet6EDDD63E"
-        },
-        "Tags": [
-          {
-            "Key": "Name",
-            "Value": "CdkServerStack/api-server-ec2-instance"
-          }
-        ],
-        "UserData": {
-          "Fn::Base64": "#!/bin/bash"
-        }
-      },
-      "DependsOn": ["apiserverec2instanceInstanceRole29D2A889"],
-      "Metadata": {
-        "aws:cdk:path": "CdkServerStack/api-server-ec2-instance/Resource"
-      }
-    },
-    "soptcoredbinstanceSubnetGroupB34F3A48": {
-      "Type": "AWS::RDS::DBSubnetGroup",
-      "Properties": {
-        "DBSubnetGroupDescription": "Subnet group for sopt-core-db-instance database",
-        "SubnetIds": [
-          {
-            "Ref": "soptcorevpcisolatedsubnet1Subnet1SubnetDADC0BD4"
-          },
-          {
-            "Ref": "soptcorevpcisolatedsubnet1Subnet2Subnet700ABE1A"
-          }
-        ]
-      },
-      "Metadata": {
-        "aws:cdk:path": "CdkServerStack/sopt-core-db-instance/SubnetGroup/Default"
-      }
-    },
-    "soptcoredbinstanceSecurityGroup3592A84A": {
-      "Type": "AWS::EC2::SecurityGroup",
-      "Properties": {
-        "GroupDescription": "Security group for sopt-core-db-instance database",
-        "SecurityGroupEgress": [
-          {
-            "CidrIp": "0.0.0.0/0",
-            "Description": "Allow all outbound traffic by default",
-            "IpProtocol": "-1"
-          }
-        ],
-        "VpcId": {
-          "Ref": "soptcorevpc91D42E6C"
-        }
-      },
-      "Metadata": {
-        "aws:cdk:path": "CdkServerStack/sopt-core-db-instance/SecurityGroup/Resource"
-      }
-    },
-    "soptcoredbinstanceSecurityGroupfromCdkServerStackapiserverec2instancesgB5174A575432FC214AB8": {
-      "Type": "AWS::EC2::SecurityGroupIngress",
-      "Properties": {
-        "IpProtocol": "tcp",
-        "Description": "from CdkServerStackapiserverec2instancesgB5174A57:5432",
-        "FromPort": 5432,
-        "GroupId": {
-          "Fn::GetAtt": ["soptcoredbinstanceSecurityGroup3592A84A", "GroupId"]
-        },
-        "SourceSecurityGroupId": {
-          "Fn::GetAtt": ["apiserverec2instancesgB63EA314", "GroupId"]
-        },
-        "ToPort": 5432
-      },
-      "Metadata": {
-        "aws:cdk:path": "CdkServerStack/sopt-core-db-instance/SecurityGroup/from CdkServerStackapiserverec2instancesgB5174A57:5432"
-      }
-    },
-    "CdkServerStacksoptcoredbinstanceSecret2A8C80B43fdaad7efa858a3daf9490cf0a702aeb": {
-      "Type": "AWS::SecretsManager::Secret",
-      "Properties": {
-        "Description": {
-          "Fn::Join": [
-            "",
-            [
-              "Generated by the CDK for stack: ",
-              {
-                "Ref": "AWS::StackName"
-              }
-            ]
-          ]
-        },
-        "GenerateSecretString": {
-          "ExcludeCharacters": " %+~`#$&*()|[]{}:;<>?!'/@\"\\",
-          "GenerateStringKey": "password",
-          "PasswordLength": 30,
-          "SecretStringTemplate": "{\"username\":\"postgres\"}"
-        }
-      },
-      "UpdateReplacePolicy": "Delete",
-      "DeletionPolicy": "Delete",
-      "Metadata": {
-        "aws:cdk:path": "CdkServerStack/sopt-core-db-instance/Secret/Resource"
-      }
-    },
-    "soptcoredbinstanceSecretAttachment14DC38B4": {
-      "Type": "AWS::SecretsManager::SecretTargetAttachment",
-      "Properties": {
-        "SecretId": {
-          "Ref": "CdkServerStacksoptcoredbinstanceSecret2A8C80B43fdaad7efa858a3daf9490cf0a702aeb"
-        },
-        "TargetId": {
-          "Ref": "soptcoredbinstanceF0F16518"
-        },
-        "TargetType": "AWS::RDS::DBInstance"
-      },
-      "Metadata": {
-        "aws:cdk:path": "CdkServerStack/sopt-core-db-instance/Secret/Attachment/Resource"
-      }
-    },
-    "soptcoredbinstanceF0F16518": {
-      "Type": "AWS::RDS::DBInstance",
-      "Properties": {
-        "DBInstanceClass": "db.t3.micro",
-        "AllocatedStorage": "100",
-        "AllowMajorVersionUpgrade": false,
-        "AutoMinorVersionUpgrade": true,
-        "BackupRetentionPeriod": 0,
-        "CopyTagsToSnapshot": true,
-        "DBName": "soptCoreDB",
-        "DBSubnetGroupName": {
-          "Ref": "soptcoredbinstanceSubnetGroupB34F3A48"
-        },
-        "DeleteAutomatedBackups": true,
-        "DeletionProtection": false,
-        "Engine": "postgres",
-        "EngineVersion": "14.2",
-        "MasterUsername": "postgres",
-        "MasterUserPassword": {
-          "Fn::Join": [
-            "",
-            [
-              "{{resolve:secretsmanager:",
-              {
-                "Ref": "CdkServerStacksoptcoredbinstanceSecret2A8C80B43fdaad7efa858a3daf9490cf0a702aeb"
-              },
-              ":SecretString:password::}}"
-            ]
-          ]
-        },
-        "MaxAllocatedStorage": 105,
-        "MultiAZ": false,
-        "PubliclyAccessible": false,
-        "StorageType": "gp2",
-        "VPCSecurityGroups": [
-          {
-            "Fn::GetAtt": ["soptcoredbinstanceSecurityGroup3592A84A", "GroupId"]
-          }
-        ]
-      },
-      "UpdateReplacePolicy": "Delete",
-      "DeletionPolicy": "Delete",
-      "Metadata": {
-        "aws:cdk:path": "CdkServerStack/sopt-core-db-instance/Resource"
-      }
-    },
-    "CDKMetadata": {
-      "Type": "AWS::CDK::Metadata",
-      "Properties": {
-        "Analytics": "v2:deflate64:H4sIAAAAAAAA/12RTW/CMAyGfwv3kAHTdudDQpxWFcR1clOPBdoE2Q4IVf3vawltYSc7T97Yr+OZfp/oyQiuPDb5aVzYTFdbAXNSDfqu0Mx0tT8btfxx+2SpkpAV1mxD5lBaNmSpD4I7yAoc+MDmzN5YEOtdL1YJ2QsIDjU2TpCafN3QK9weTR+nuTS2fkt0orZoAlm5rcmH873dC9g4FnAGY8khf1Ft3IGQuVYWSl2lPvruYvcsIf9jC6wV5ayrFQhkwNgXjdZ7G6vFM+jUTVuK860W3cta8Z1yCQ4OSLqK/lphDDugA8rT0L3g/01dqxTZB4pTJkBQYvOR7eEryDnE/TxJlt7ltt1FrZzPUR/57TL91NMPPR0d2doxBSe2RJ3G+AcO6zLIJQIAAA=="
-      },
-      "Metadata": {
-        "aws:cdk:path": "CdkServerStack/CDKMetadata/Default"
-      },
-      "Condition": "CDKMetadataAvailable"
-    }
+ "Resources": {
+  "soptcorevpc91D42E6C": {
+   "Type": "AWS::EC2::VPC",
+   "Properties": {
+    "CidrBlock": "10.0.0.0/16",
+    "EnableDnsHostnames": true,
+    "EnableDnsSupport": true,
+    "InstanceTenancy": "default",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "CdkServerStack/sopt-core-vpc"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CdkServerStack/sopt-core-vpc/Resource"
+   }
   },
-  "Parameters": {
-    "SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter": {
-      "Type": "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>",
-      "Default": "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2"
+  "soptcorevpcpublicsubnet1Subnet1Subnet6EDDD63E": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "VpcId": {
+     "Ref": "soptcorevpc91D42E6C"
     },
-    "BootstrapVersion": {
-      "Type": "AWS::SSM::Parameter::Value<String>",
-      "Default": "/cdk-bootstrap/hnb659fds/version",
-      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
-    }
-  },
-  "Outputs": {
-    "dbEndpoint": {
-      "Value": {
-        "Fn::GetAtt": ["soptcoredbinstanceF0F16518", "Endpoint.Address"]
+    "AvailabilityZone": {
+     "Fn::Select": [
+      0,
+      {
+       "Fn::GetAZs": ""
       }
+     ]
     },
-    "secretName": {
-      "Value": {
-        "Fn::Join": [
-          "-",
+    "CidrBlock": "10.0.0.0/24",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "public-subnet-1"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "Name",
+      "Value": "CdkServerStack/sopt-core-vpc/public-subnet-1Subnet1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CdkServerStack/sopt-core-vpc/public-subnet-1Subnet1/Subnet"
+   }
+  },
+  "soptcorevpcpublicsubnet1Subnet1RouteTableBC77E4C6": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "VpcId": {
+     "Ref": "soptcorevpc91D42E6C"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "CdkServerStack/sopt-core-vpc/public-subnet-1Subnet1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CdkServerStack/sopt-core-vpc/public-subnet-1Subnet1/RouteTable"
+   }
+  },
+  "soptcorevpcpublicsubnet1Subnet1RouteTableAssociation1C6D8DC7": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "soptcorevpcpublicsubnet1Subnet1RouteTableBC77E4C6"
+    },
+    "SubnetId": {
+     "Ref": "soptcorevpcpublicsubnet1Subnet1Subnet6EDDD63E"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CdkServerStack/sopt-core-vpc/public-subnet-1Subnet1/RouteTableAssociation"
+   }
+  },
+  "soptcorevpcpublicsubnet1Subnet1DefaultRouteCD992188": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "soptcorevpcpublicsubnet1Subnet1RouteTableBC77E4C6"
+    },
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "soptcorevpcIGW69CA2CF3"
+    }
+   },
+   "DependsOn": [
+    "soptcorevpcVPCGWFA20B8B8"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "CdkServerStack/sopt-core-vpc/public-subnet-1Subnet1/DefaultRoute"
+   }
+  },
+  "soptcorevpcpublicsubnet1Subnet2Subnet0F1B6115": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "VpcId": {
+     "Ref": "soptcorevpc91D42E6C"
+    },
+    "AvailabilityZone": {
+     "Fn::Select": [
+      1,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.1.0/24",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "public-subnet-1"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "Name",
+      "Value": "CdkServerStack/sopt-core-vpc/public-subnet-1Subnet2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CdkServerStack/sopt-core-vpc/public-subnet-1Subnet2/Subnet"
+   }
+  },
+  "soptcorevpcpublicsubnet1Subnet2RouteTable7456ABA6": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "VpcId": {
+     "Ref": "soptcorevpc91D42E6C"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "CdkServerStack/sopt-core-vpc/public-subnet-1Subnet2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CdkServerStack/sopt-core-vpc/public-subnet-1Subnet2/RouteTable"
+   }
+  },
+  "soptcorevpcpublicsubnet1Subnet2RouteTableAssociationFCD62BB6": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "soptcorevpcpublicsubnet1Subnet2RouteTable7456ABA6"
+    },
+    "SubnetId": {
+     "Ref": "soptcorevpcpublicsubnet1Subnet2Subnet0F1B6115"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CdkServerStack/sopt-core-vpc/public-subnet-1Subnet2/RouteTableAssociation"
+   }
+  },
+  "soptcorevpcpublicsubnet1Subnet2DefaultRoute00489820": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "soptcorevpcpublicsubnet1Subnet2RouteTable7456ABA6"
+    },
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "soptcorevpcIGW69CA2CF3"
+    }
+   },
+   "DependsOn": [
+    "soptcorevpcVPCGWFA20B8B8"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "CdkServerStack/sopt-core-vpc/public-subnet-1Subnet2/DefaultRoute"
+   }
+  },
+  "soptcorevpcisolatedsubnet1Subnet1SubnetDADC0BD4": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "VpcId": {
+     "Ref": "soptcorevpc91D42E6C"
+    },
+    "AvailabilityZone": {
+     "Fn::Select": [
+      0,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.2.0/28",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "isolated-subnet-1"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Isolated"
+     },
+     {
+      "Key": "Name",
+      "Value": "CdkServerStack/sopt-core-vpc/isolated-subnet-1Subnet1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CdkServerStack/sopt-core-vpc/isolated-subnet-1Subnet1/Subnet"
+   }
+  },
+  "soptcorevpcisolatedsubnet1Subnet1RouteTable9D31C1EA": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "VpcId": {
+     "Ref": "soptcorevpc91D42E6C"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "CdkServerStack/sopt-core-vpc/isolated-subnet-1Subnet1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CdkServerStack/sopt-core-vpc/isolated-subnet-1Subnet1/RouteTable"
+   }
+  },
+  "soptcorevpcisolatedsubnet1Subnet1RouteTableAssociation6A586872": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "soptcorevpcisolatedsubnet1Subnet1RouteTable9D31C1EA"
+    },
+    "SubnetId": {
+     "Ref": "soptcorevpcisolatedsubnet1Subnet1SubnetDADC0BD4"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CdkServerStack/sopt-core-vpc/isolated-subnet-1Subnet1/RouteTableAssociation"
+   }
+  },
+  "soptcorevpcisolatedsubnet1Subnet2Subnet700ABE1A": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "VpcId": {
+     "Ref": "soptcorevpc91D42E6C"
+    },
+    "AvailabilityZone": {
+     "Fn::Select": [
+      1,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.2.16/28",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "isolated-subnet-1"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Isolated"
+     },
+     {
+      "Key": "Name",
+      "Value": "CdkServerStack/sopt-core-vpc/isolated-subnet-1Subnet2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CdkServerStack/sopt-core-vpc/isolated-subnet-1Subnet2/Subnet"
+   }
+  },
+  "soptcorevpcisolatedsubnet1Subnet2RouteTable2694CDEE": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "VpcId": {
+     "Ref": "soptcorevpc91D42E6C"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "CdkServerStack/sopt-core-vpc/isolated-subnet-1Subnet2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CdkServerStack/sopt-core-vpc/isolated-subnet-1Subnet2/RouteTable"
+   }
+  },
+  "soptcorevpcisolatedsubnet1Subnet2RouteTableAssociation358388A5": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "soptcorevpcisolatedsubnet1Subnet2RouteTable2694CDEE"
+    },
+    "SubnetId": {
+     "Ref": "soptcorevpcisolatedsubnet1Subnet2Subnet700ABE1A"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CdkServerStack/sopt-core-vpc/isolated-subnet-1Subnet2/RouteTableAssociation"
+   }
+  },
+  "soptcorevpcIGW69CA2CF3": {
+   "Type": "AWS::EC2::InternetGateway",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "CdkServerStack/sopt-core-vpc"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CdkServerStack/sopt-core-vpc/IGW"
+   }
+  },
+  "soptcorevpcVPCGWFA20B8B8": {
+   "Type": "AWS::EC2::VPCGatewayAttachment",
+   "Properties": {
+    "VpcId": {
+     "Ref": "soptcorevpc91D42E6C"
+    },
+    "InternetGatewayId": {
+     "Ref": "soptcorevpcIGW69CA2CF3"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CdkServerStack/sopt-core-vpc/VPCGW"
+   }
+  },
+  "apiserverec2instancesgB63EA314": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "CdkServerStack/api-server-ec2-instance-sg",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "SecurityGroupIngress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "allow SSH connections from anywhere",
+      "FromPort": 22,
+      "IpProtocol": "tcp",
+      "ToPort": 22
+     },
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "allow TCP connection on PORT 4000 from anywhere",
+      "FromPort": 4000,
+      "IpProtocol": "tcp",
+      "ToPort": 4000
+     },
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "allow TCP connection on PORT 4000 from anywhere(auth)",
+      "FromPort": 5000,
+      "IpProtocol": "tcp",
+      "ToPort": 5000
+     }
+    ],
+    "VpcId": {
+     "Ref": "soptcorevpc91D42E6C"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CdkServerStack/api-server-ec2-instance-sg/Resource"
+   }
+  },
+  "apiserverec2instanceInstanceRole29D2A889": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": {
+         "Fn::Join": [
+          "",
           [
-            {
-              "Fn::Select": [
-                0,
-                {
-                  "Fn::Split": [
-                    "-",
-                    {
-                      "Fn::Select": [
-                        6,
-                        {
-                          "Fn::Split": [
-                            ":",
-                            {
-                              "Ref": "CdkServerStacksoptcoredbinstanceSecret2A8C80B43fdaad7efa858a3daf9490cf0a702aeb"
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "Fn::Select": [
-                1,
-                {
-                  "Fn::Split": [
-                    "-",
-                    {
-                      "Fn::Select": [
-                        6,
-                        {
-                          "Fn::Split": [
-                            ":",
-                            {
-                              "Ref": "CdkServerStacksoptcoredbinstanceSecret2A8C80B43fdaad7efa858a3daf9490cf0a702aeb"
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
+           "ec2.",
+           {
+            "Ref": "AWS::URLSuffix"
+           }
           ]
-        ]
+         ]
+        }
+       }
       }
-    }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "CdkServerStack/api-server-ec2-instance"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CdkServerStack/api-server-ec2-instance/InstanceRole/Resource"
+   }
   },
-  "Conditions": {
-    "CDKMetadataAvailable": {
-      "Fn::Or": [
-        {
-          "Fn::Or": [
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "af-south-1"
-              ]
-            },
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "ap-east-1"
-              ]
-            },
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "ap-northeast-1"
-              ]
-            },
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "ap-northeast-2"
-              ]
-            },
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "ap-south-1"
-              ]
-            },
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "ap-southeast-1"
-              ]
-            },
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "ap-southeast-2"
-              ]
-            },
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "ca-central-1"
-              ]
-            },
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "cn-north-1"
-              ]
-            },
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "cn-northwest-1"
-              ]
-            }
-          ]
-        },
-        {
-          "Fn::Or": [
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "eu-central-1"
-              ]
-            },
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "eu-north-1"
-              ]
-            },
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "eu-south-1"
-              ]
-            },
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "eu-west-1"
-              ]
-            },
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "eu-west-2"
-              ]
-            },
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "eu-west-3"
-              ]
-            },
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "me-south-1"
-              ]
-            },
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "sa-east-1"
-              ]
-            },
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "us-east-1"
-              ]
-            },
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "us-east-2"
-              ]
-            }
-          ]
-        },
-        {
-          "Fn::Or": [
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "us-west-1"
-              ]
-            },
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "us-west-2"
-              ]
-            }
-          ]
-        }
-      ]
-    }
+  "apiserverec2instanceInstanceProfile74C395D5": {
+   "Type": "AWS::IAM::InstanceProfile",
+   "Properties": {
+    "Roles": [
+     {
+      "Ref": "apiserverec2instanceInstanceRole29D2A889"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CdkServerStack/api-server-ec2-instance/InstanceProfile"
+   }
   },
-  "Rules": {
-    "CheckBootstrapVersion": {
-      "Assertions": [
-        {
-          "Assert": {
-            "Fn::Not": [
-              {
-                "Fn::Contains": [
-                  ["1", "2", "3", "4", "5"],
-                  {
-                    "Ref": "BootstrapVersion"
-                  }
-                ]
-              }
-            ]
-          },
-          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
-        }
+  "apiserverec2instance4262AA0D": {
+   "Type": "AWS::EC2::Instance",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::Select": [
+      0,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "IamInstanceProfile": {
+     "Ref": "apiserverec2instanceInstanceProfile74C395D5"
+    },
+    "ImageId": {
+     "Ref": "SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter"
+    },
+    "InstanceType": "t3.micro",
+    "KeyName": "sopt-core-key-pair",
+    "SecurityGroupIds": [
+     {
+      "Fn::GetAtt": [
+       "apiserverec2instancesgB63EA314",
+       "GroupId"
       ]
+     }
+    ],
+    "SubnetId": {
+     "Ref": "soptcorevpcpublicsubnet1Subnet1Subnet6EDDD63E"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "CdkServerStack/api-server-ec2-instance"
+     }
+    ],
+    "UserData": {
+     "Fn::Base64": "#!/bin/bash"
     }
+   },
+   "DependsOn": [
+    "apiserverec2instanceInstanceRole29D2A889"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "CdkServerStack/api-server-ec2-instance/Resource"
+   }
+  },
+  "soptcoredbinstanceSubnetGroupB34F3A48": {
+   "Type": "AWS::RDS::DBSubnetGroup",
+   "Properties": {
+    "DBSubnetGroupDescription": "Subnet group for sopt-core-db-instance database",
+    "SubnetIds": [
+     {
+      "Ref": "soptcorevpcisolatedsubnet1Subnet1SubnetDADC0BD4"
+     },
+     {
+      "Ref": "soptcorevpcisolatedsubnet1Subnet2Subnet700ABE1A"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "CdkServerStack/sopt-core-db-instance/SubnetGroup/Default"
+   }
+  },
+  "soptcoredbinstanceSecurityGroup3592A84A": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "Security group for sopt-core-db-instance database",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "soptcorevpc91D42E6C"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CdkServerStack/sopt-core-db-instance/SecurityGroup/Resource"
+   }
+  },
+  "soptcoredbinstanceSecurityGroupfromCdkServerStackapiserverec2instancesgB5174A575432FC214AB8": {
+   "Type": "AWS::EC2::SecurityGroupIngress",
+   "Properties": {
+    "IpProtocol": "tcp",
+    "Description": "from CdkServerStackapiserverec2instancesgB5174A57:5432",
+    "FromPort": 5432,
+    "GroupId": {
+     "Fn::GetAtt": [
+      "soptcoredbinstanceSecurityGroup3592A84A",
+      "GroupId"
+     ]
+    },
+    "SourceSecurityGroupId": {
+     "Fn::GetAtt": [
+      "apiserverec2instancesgB63EA314",
+      "GroupId"
+     ]
+    },
+    "ToPort": 5432
+   },
+   "Metadata": {
+    "aws:cdk:path": "CdkServerStack/sopt-core-db-instance/SecurityGroup/from CdkServerStackapiserverec2instancesgB5174A57:5432"
+   }
+  },
+  "CdkServerStacksoptcoredbinstanceSecret2A8C80B43fdaad7efa858a3daf9490cf0a702aeb": {
+   "Type": "AWS::SecretsManager::Secret",
+   "Properties": {
+    "Description": {
+     "Fn::Join": [
+      "",
+      [
+       "Generated by the CDK for stack: ",
+       {
+        "Ref": "AWS::StackName"
+       }
+      ]
+     ]
+    },
+    "GenerateSecretString": {
+     "ExcludeCharacters": " %+~`#$&*()|[]{}:;<>?!'/@\"\\",
+     "GenerateStringKey": "password",
+     "PasswordLength": 30,
+     "SecretStringTemplate": "{\"username\":\"postgres\"}"
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "CdkServerStack/sopt-core-db-instance/Secret/Resource"
+   }
+  },
+  "soptcoredbinstanceSecretAttachment14DC38B4": {
+   "Type": "AWS::SecretsManager::SecretTargetAttachment",
+   "Properties": {
+    "SecretId": {
+     "Ref": "CdkServerStacksoptcoredbinstanceSecret2A8C80B43fdaad7efa858a3daf9490cf0a702aeb"
+    },
+    "TargetId": {
+     "Ref": "soptcoredbinstanceF0F16518"
+    },
+    "TargetType": "AWS::RDS::DBInstance"
+   },
+   "Metadata": {
+    "aws:cdk:path": "CdkServerStack/sopt-core-db-instance/Secret/Attachment/Resource"
+   }
+  },
+  "soptcoredbinstanceF0F16518": {
+   "Type": "AWS::RDS::DBInstance",
+   "Properties": {
+    "DBInstanceClass": "db.t3.micro",
+    "AllocatedStorage": "100",
+    "AllowMajorVersionUpgrade": false,
+    "AutoMinorVersionUpgrade": true,
+    "BackupRetentionPeriod": 0,
+    "CopyTagsToSnapshot": true,
+    "DBName": "soptCoreDB",
+    "DBSubnetGroupName": {
+     "Ref": "soptcoredbinstanceSubnetGroupB34F3A48"
+    },
+    "DeleteAutomatedBackups": true,
+    "DeletionProtection": false,
+    "Engine": "postgres",
+    "EngineVersion": "14.2",
+    "MasterUsername": "postgres",
+    "MasterUserPassword": {
+     "Fn::Join": [
+      "",
+      [
+       "{{resolve:secretsmanager:",
+       {
+        "Ref": "CdkServerStacksoptcoredbinstanceSecret2A8C80B43fdaad7efa858a3daf9490cf0a702aeb"
+       },
+       ":SecretString:password::}}"
+      ]
+     ]
+    },
+    "MaxAllocatedStorage": 105,
+    "MultiAZ": false,
+    "PubliclyAccessible": false,
+    "StorageType": "gp2",
+    "VPCSecurityGroups": [
+     {
+      "Fn::GetAtt": [
+       "soptcoredbinstanceSecurityGroup3592A84A",
+       "GroupId"
+      ]
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "CdkServerStack/sopt-core-db-instance/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/12RTW/CMAyGfwv3kAHTdudDQpxWFcR1clOPBdoE2Q4IVf3vawltYSc7T97Yr+OZfp/oyQiuPDb5aVzYTFdbAXNSDfqu0Mx0tT8btfxx+2SpkpAV1mxD5lBaNmSpD4I7yAoc+MDmzN5YEOtdL1YJ2QsIDjU2TpCafN3QK9weTR+nuTS2fkt0orZoAlm5rcmH873dC9g4FnAGY8khf1Ft3IGQuVYWSl2lPvruYvcsIf9jC6wV5ayrFQhkwNgXjdZ7G6vFM+jUTVuK860W3cta8Z1yCQ4OSLqK/lphDDugA8rT0L3g/01dqxTZB4pTJkBQYvOR7eEryDnE/TxJlt7ltt1FrZzPUR/57TL91NMPPR0d2doxBSe2RJ3G+AcO6zLIJQIAAA=="
+   },
+   "Metadata": {
+    "aws:cdk:path": "CdkServerStack/CDKMetadata/Default"
+   },
+   "Condition": "CDKMetadataAvailable"
   }
+ },
+ "Parameters": {
+  "SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter": {
+   "Type": "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>",
+   "Default": "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2"
+  },
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Outputs": {
+  "dbEndpoint": {
+   "Value": {
+    "Fn::GetAtt": [
+     "soptcoredbinstanceF0F16518",
+     "Endpoint.Address"
+    ]
+   }
+  },
+  "secretName": {
+   "Value": {
+    "Fn::Join": [
+     "-",
+     [
+      {
+       "Fn::Select": [
+        0,
+        {
+         "Fn::Split": [
+          "-",
+          {
+           "Fn::Select": [
+            6,
+            {
+             "Fn::Split": [
+              ":",
+              {
+               "Ref": "CdkServerStacksoptcoredbinstanceSecret2A8C80B43fdaad7efa858a3daf9490cf0a702aeb"
+              }
+             ]
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "Fn::Select": [
+        1,
+        {
+         "Fn::Split": [
+          "-",
+          {
+           "Fn::Select": [
+            6,
+            {
+             "Fn::Split": [
+              ":",
+              {
+               "Ref": "CdkServerStacksoptcoredbinstanceSecret2A8C80B43fdaad7efa858a3daf9490cf0a702aeb"
+              }
+             ]
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    ]
+   }
+  }
+ },
+ "Conditions": {
+  "CDKMetadataAvailable": {
+   "Fn::Or": [
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "af-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ca-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "cn-north-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "cn-northwest-1"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-north-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-3"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "me-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "sa-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-east-2"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-west-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-west-2"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
 }
