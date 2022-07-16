@@ -1,11 +1,30 @@
-import jwt from "jsonwebtoken";
+import { verify } from "jsonwebtoken";
+import z from "zod";
 
 import { AccessTokenManager } from "@/application/security/accessTokenManager";
 
-const secret = process.env.JWT_SECRET;
+const jwtSecret = process.env.JWT_SECRET as string;
 
-export class JwtAccessTokenManager implements AccessTokenManager {
-  verify(token: string) {
-    return jwt.verify(token, secret ?? "DEV_SECRET");
-  }
-}
+export const createAccessTokenManager = (): AccessTokenManager => {
+  return {
+    verify(accessToken) {
+      const extracted = verify(accessToken, jwtSecret);
+
+      const validator = z.object({
+        iss: z.string(),
+        sub: z.string(),
+      });
+
+      const tokenInfo = validator.parse(extracted);
+      const userId = Number(tokenInfo.sub.split("|")[1]);
+
+      if (isNaN(userId)) {
+        throw new Error(`Not a valid user ID (${userId})`);
+      }
+
+      return {
+        userId,
+      };
+    },
+  };
+};

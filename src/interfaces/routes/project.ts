@@ -3,6 +3,7 @@ import { z } from "zod";
 
 import { Services } from "@/application/service";
 import { CreateProjectModel } from "@/domain/validators/project";
+import authMiddleware from "@/infrastructure/webserver/middlewares/auth";
 import { createProjectController } from "@/interfaces/controllers/projectController";
 import { asyncRoute } from "@/util/route";
 import { validate } from "@/util/validate";
@@ -22,6 +23,7 @@ export function createProjectRoutes({ services }: CreateProjectRouteDeps) {
 
   router.post(
     "/",
+    authMiddleware,
     validate(
       z.object({
         body: CreateProjectModel,
@@ -32,6 +34,7 @@ export function createProjectRoutes({ services }: CreateProjectRouteDeps) {
 
   router.put(
     "/:id",
+    authMiddleware,
     validate(
       z.object({
         body: ProjectModel.partial(),
@@ -40,7 +43,7 @@ export function createProjectRoutes({ services }: CreateProjectRouteDeps) {
     asyncRoute(controllers.updateProject),
   );
 
-  router.delete("/:id", asyncRoute(controllers.deleteProject));
+  router.delete("/:id", authMiddleware, asyncRoute(controllers.deleteProject));
 
   return router;
 }

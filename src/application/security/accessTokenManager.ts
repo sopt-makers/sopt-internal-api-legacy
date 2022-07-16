@@ -1,3 +1,3 @@
 export interface AccessTokenManager {
-  verify: (token: string) => void;
+  verify: (token: string) => { userId: number };
 }

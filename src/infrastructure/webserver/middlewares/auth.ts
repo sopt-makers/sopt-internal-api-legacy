@@ -1,11 +1,10 @@
 import express from "express";
-import { z } from "zod";
 
-import { JwtAccessTokenManager } from "@/infrastructure/security/JwtAccessTokenManager";
+import { createAccessTokenManager } from "@/infrastructure/security/JwtAccessTokenManager";
 
 const authMiddleware = express.Router();
 // TODO: inject token manager
-const tokenManager = new JwtAccessTokenManager();
+const tokenManager = createAccessTokenManager();
 
 // a middleware function with no mount path. This code is executed for every request to the router
 authMiddleware.use((req, res, next) => {
@@ -17,20 +16,13 @@ authMiddleware.use((req, res, next) => {
   const token = authorization.replace(/Bearer/gi, "").replace(/ /g, "");
 
   try {
-    const decoded = tokenManager.verify(token);
-
-    const validator = z.object({
-      iss: z.string(),
-      sub: z.string(),
-    });
-
-    const info = validator.parse(decoded);
-    const userId = info.sub.split("|")[1];
-    // NOTE: set userId into res.locals
+    const { userId } = tokenManager.verify(token);
     res.locals.userId = userId;
     next();
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
-    return res.status(401);
+    return res.sendStatus(401);
   }
 });
+
+export default authMiddleware;
