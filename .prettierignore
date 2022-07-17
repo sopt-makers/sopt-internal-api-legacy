@@ -1,4 +1,4 @@
 prisma/zod
 prisma/models/
-cdk.out/
+cdk.out/*
 cdk.json
