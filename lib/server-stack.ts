@@ -56,6 +56,15 @@ export class ServerStack extends cdk.Stack {
       keyName: "sopt-core-key-pair",
     });
 
+    // elastic IP
+    const eip = new ec2.CfnEIP(this, "server-ip");
+    // EC2 Instance <> EIP
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const eipAssociation = new ec2.CfnEIPAssociation(this, "Ec2Association", {
+      eip: eip.ref,
+      instanceId: ec2Instance.instanceId,
+    });
+
     // 👇 create RDS instance
     const dbInstance = new rds.DatabaseInstance(this, "sopt-core-db-instance", {
       vpc,

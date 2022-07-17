@@ -484,6 +484,26 @@
     "aws:cdk:path": "CdkServerStack/api-server-ec2-instance/Resource"
    }
   },
+  "serverip": {
+   "Type": "AWS::EC2::EIP",
+   "Metadata": {
+    "aws:cdk:path": "CdkServerStack/server-ip"
+   }
+  },
+  "Ec2Association": {
+   "Type": "AWS::EC2::EIPAssociation",
+   "Properties": {
+    "EIP": {
+     "Ref": "serverip"
+    },
+    "InstanceId": {
+     "Ref": "apiserverec2instance4262AA0D"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CdkServerStack/Ec2Association"
+   }
+  },
   "soptcoredbinstanceSubnetGroupB34F3A48": {
    "Type": "AWS::RDS::DBSubnetGroup",
    "Properties": {
@@ -638,7 +658,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/12RTW/CMAyGfwv3kAHTdudDQpxWFcR1clOPBdoE2Q4IVf3vawltYSc7T97Yr+OZfp/oyQiuPDb5aVzYTFdbAXNSDfqu0Mx0tT8btfxx+2SpkpAV1mxD5lBaNmSpD4I7yAoc+MDmzN5YEOtdL1YJ2QsIDjU2TpCafN3QK9weTR+nuTS2fkt0orZoAlm5rcmH873dC9g4FnAGY8khf1Ft3IGQuVYWSl2lPvruYvcsIf9jC6wV5ayrFQhkwNgXjdZ7G6vFM+jUTVuK860W3cta8Z1yCQ4OSLqK/lphDDugA8rT0L3g/01dqxTZB4pTJkBQYvOR7eEryDnE/TxJlt7ltt1FrZzPUR/57TL91NMPPR0d2doxBSe2RJ3G+AcO6zLIJQIAAA=="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/11RTW/CMAz9LdxDBkzbnY8J9bSqIK6Tm5oSaBMUOyBU9b+vJbQFTs9+ebafnZn8nMjJCK40VtlpXOhUVhsGdRIN9Vehmslqd1ZiuTe7eClinxZabXxqkFtuiBLrGbeQFjjwAzcnskoDa2t6sYidvgDj0CMyjK6J1w17hdtj6CObc2PrUKJhsUHlnebb2ll/vo97ISJDDEZhaDnEP1H8gDc7L+WRyR0S1UJDKavEhoU67PrFzu51gbVwGclqBQwpEPbTwk69v9XimejUzVgXFl8tuspa0J2lEgzk6GQV/LXCAFtwOfLTNXrB+0tdiwTJehfWj8FBic2F2+TX89mHj3uSLK3JdHuVWhiboTzSx2X6Ladfcjo6ktZj5w3rEmUS8B8XlV4aPgIAAA=="
    },
    "Metadata": {
     "aws:cdk:path": "CdkServerStack/CDKMetadata/Default"

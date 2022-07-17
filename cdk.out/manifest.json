@@ -23,7 +23,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/b6c6ab13f8e88024cd689e6f7609587e1e085b3dc3c55b8d801ea4d9274a9d44.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/e0521c1d2c96c44c6c49e8d50cb14d3eaecade7be2656c58ba57aee63f9fb9f5.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -169,6 +169,18 @@
           {
             "type": "aws:cdk:logicalId",
             "data": "SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter"
+          }
+        ],
+        "/CdkServerStack/server-ip": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "serverip"
+          }
+        ],
+        "/CdkServerStack/Ec2Association": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Ec2Association"
           }
         ],
         "/CdkServerStack/sopt-core-db-instance/SubnetGroup/Default": [

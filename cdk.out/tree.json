@@ -724,6 +724,37 @@
               "version": "2.30.0"
             }
           },
+          "server-ip": {
+            "id": "server-ip",
+            "path": "CdkServerStack/server-ip",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::EIP",
+              "aws:cdk:cloudformation:props": {}
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_ec2.CfnEIP",
+              "version": "2.30.0"
+            }
+          },
+          "Ec2Association": {
+            "id": "Ec2Association",
+            "path": "CdkServerStack/Ec2Association",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::EIPAssociation",
+              "aws:cdk:cloudformation:props": {
+                "eip": {
+                  "Ref": "serverip"
+                },
+                "instanceId": {
+                  "Ref": "apiserverec2instance4262AA0D"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_ec2.CfnEIPAssociation",
+              "version": "2.30.0"
+            }
+          },
           "sopt-core-db-instance": {
             "id": "sopt-core-db-instance",
             "path": "CdkServerStack/sopt-core-db-instance",
