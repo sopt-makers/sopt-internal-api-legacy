@@ -30,6 +30,7 @@ model Project {
   is_founding     Boolean?
   summary         String
   detail          String
+  logo_image      String
   thumbnail_image String
   images          String[]
   createdAt       DateTime          @default(now())

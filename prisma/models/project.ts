@@ -13,6 +13,7 @@ export const ProjectModel = z.object({
   is_founding: z.boolean().nullish(),
   summary: z.string(),
   detail: z.string(),
+  logo_image: z.string(),
   thumbnail_image: z.string(),
   images: z.string().array(),
   createdAt: z.date(),
