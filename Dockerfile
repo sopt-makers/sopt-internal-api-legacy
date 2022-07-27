@@ -25,6 +25,7 @@ COPY --from=base ./node_modules/ ./node_modules/
 COPY --from=base ./package.json ./
 COPY --from=base ./yarn.lock ./
 COPY --from=base ./dist/ ./dist/
+COPY --from=base ./prisma/ ./prisma/
 COPY ./.env ./
 
 # Copy static files
