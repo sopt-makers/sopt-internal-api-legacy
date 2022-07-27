@@ -5,8 +5,7 @@ import { v4 as uuid } from "uuid";
 
 import { s3Client } from "@/infrastructure/aws/s3-client";
 
-// TODO: edit bucket based on environment
-const bucket = "sopt-core-assets-local";
+const bucket = process.env.AWS_S3_BUCKET;
 
 export const createPresignedUrlController = () => {
   return {
@@ -19,8 +18,8 @@ export const createPresignedUrlController = () => {
       });
       // Create the presigned URL.
       const signedUrl = await getSignedUrl(s3Client, command, {
-        // NOTE: 1 시간 뒤에 expire 되는 url 발급
-        expiresIn: 3600,
+        // NOTE: production에서는 1분, 개발 환경에선 10분 뒤에 expire 되는 url 발급
+        expiresIn: process.env.NODE_ENV === "production" ? 60 : 10 * 60,
       });
 
       res.json({ signedUrl });

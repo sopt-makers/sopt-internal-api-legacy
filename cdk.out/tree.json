@@ -738,6 +738,80 @@
               "version": "2.30.0"
             }
           },
+          "SoptCoreAssetsDev": {
+            "id": "SoptCoreAssetsDev",
+            "path": "CdkServerStack/SoptCoreAssetsDev",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "CdkServerStack/SoptCoreAssetsDev/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::S3::Bucket",
+                  "aws:cdk:cloudformation:props": {}
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3.CfnBucket",
+                  "version": "2.30.0"
+                }
+              },
+              "Policy": {
+                "id": "Policy",
+                "path": "CdkServerStack/SoptCoreAssetsDev/Policy",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "CdkServerStack/SoptCoreAssetsDev/Policy/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::S3::BucketPolicy",
+                      "aws:cdk:cloudformation:props": {
+                        "bucket": {
+                          "Ref": "SoptCoreAssetsDev5AE82816"
+                        },
+                        "policyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "s3:GetObject",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "AWS": "*"
+                              },
+                              "Resource": {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    {
+                                      "Fn::GetAtt": [
+                                        "SoptCoreAssetsDev5AE82816",
+                                        "Arn"
+                                      ]
+                                    },
+                                    "/*"
+                                  ]
+                                ]
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3.CfnBucketPolicy",
+                      "version": "2.30.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3.BucketPolicy",
+                  "version": "2.30.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_s3.Bucket",
+              "version": "2.30.0"
+            }
+          },
           "server-ip": {
             "id": "server-ip",
             "path": "CdkServerStack/server-ip",

@@ -498,6 +498,51 @@
     "aws:cdk:path": "CdkServerStack/api-server-ec2-instance/Resource"
    }
   },
+  "SoptCoreAssetsDev5AE82816": {
+   "Type": "AWS::S3::Bucket",
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "CdkServerStack/SoptCoreAssetsDev/Resource"
+   }
+  },
+  "SoptCoreAssetsDevPolicy4E49D890": {
+   "Type": "AWS::S3::BucketPolicy",
+   "Properties": {
+    "Bucket": {
+     "Ref": "SoptCoreAssetsDev5AE82816"
+    },
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "s3:GetObject",
+       "Effect": "Allow",
+       "Principal": {
+        "AWS": "*"
+       },
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          {
+           "Fn::GetAtt": [
+            "SoptCoreAssetsDev5AE82816",
+            "Arn"
+           ]
+          },
+          "/*"
+         ]
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "CdkServerStack/SoptCoreAssetsDev/Policy/Resource"
+   }
+  },
   "serverip": {
    "Type": "AWS::EC2::EIP",
    "Metadata": {
@@ -672,7 +717,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/11RTW/CMAz9LdxDBkzbnY8J9bSqIK6Tm5oSaBMUOyBU9b+vJbQFTs9+ebafnZn8nMjJCK40VtlpXOhUVhsGdRIN9Vehmslqd1ZiuTe7eClinxZabXxqkFtuiBLrGbeQFjjwAzcnskoDa2t6sYidvgDj0CMyjK6J1w17hdtj6CObc2PrUKJhsUHlnebb2ll/vo97ISJDDEZhaDnEP1H8gDc7L+WRyR0S1UJDKavEhoU67PrFzu51gbVwGclqBQwpEPbTwk69v9XimejUzVgXFl8tuspa0J2lEgzk6GQV/LXCAFtwOfLTNXrB+0tdiwTJehfWj8FBic2F2+TX89mHj3uSLK3JdHuVWhiboTzSx2X6Ladfcjo6ktZj5w3rEmUS8B8XlV4aPgIAAA=="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/11Ry47CMAz8Fu4hy0O7dx4r1NNGBXFdualhA22CEgeEqv77pqQP4DT2ZGKP7RmfT/hkBDc3lvl5XKiMV1sCeWaB+q1Qzni1v0i2Oui9WDHhs0LJrc80UsMNUWo84Q6yAgd+4BbOGamAlNG9mAmrrkA41Eg0oQ3xJrA3uLdN22xBwdZfiZrYFqW3iu4ba/zl0e6FSLQj0BJjySH+TkQLb3Zevif6aNG5mikoeZWaOFCHXT1hzUEVWDM359XSy3OcoI0iCBN2dR/omNfM5o5XayDIwGFvMK6hH2m9fCY6dXBqY6f1svsZPDxYV4KGI1pexZEaYYQd2CPS0wJ7wftLXbMUnfE2bkyAhRLDUZrkx9PFx1s/SVZG56pZZM20yZGf3Md1+sWnn3w6OjmlxtZrUiXyNOI/ew3JonECAAA="
    },
    "Metadata": {
     "aws:cdk:path": "CdkServerStack/CDKMetadata/Default"

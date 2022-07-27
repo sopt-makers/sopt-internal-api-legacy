@@ -2,6 +2,7 @@ import * as cdk from "aws-cdk-lib";
 import * as ec2 from "aws-cdk-lib/aws-ec2";
 import * as iam from "aws-cdk-lib/aws-iam";
 import * as rds from "aws-cdk-lib/aws-rds";
+import * as s3 from "aws-cdk-lib/aws-s3";
 
 export class ServerStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
@@ -57,6 +58,13 @@ export class ServerStack extends cdk.Stack {
       keyName: "sopt-core-key-pair",
     });
     ec2Instance.role.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName("AmazonS3FullAccess"));
+
+    // 👇 create S3 bucket
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const s3Bucket = new s3.Bucket(this, "SoptCoreAssetsDev", {
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
+      publicReadAccess: true,
+    });
 
     // elastic IP
     const eip = new ec2.CfnEIP(this, "server-ip");
