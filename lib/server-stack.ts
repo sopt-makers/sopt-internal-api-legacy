@@ -1,5 +1,6 @@
 import * as cdk from "aws-cdk-lib";
 import * as ec2 from "aws-cdk-lib/aws-ec2";
+import * as iam from "aws-cdk-lib/aws-iam";
 import * as rds from "aws-cdk-lib/aws-rds";
 
 export class ServerStack extends cdk.Stack {
@@ -55,6 +56,7 @@ export class ServerStack extends cdk.Stack {
       }),
       keyName: "sopt-core-key-pair",
     });
+    ec2Instance.role.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName("AmazonS3FullAccess"));
 
     // elastic IP
     const eip = new ec2.CfnEIP(this, "server-ip");
