@@ -30,5 +30,6 @@ COPY ./.env ./
 # Copy static files
 # COPY src/public dist/src/public
 
+ENV NODE_ENV=production
 EXPOSE 4000
-CMD ["yarn", "start"]
+CMD ["yarn", "start:migrate"]

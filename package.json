@@ -16,7 +16,8 @@
     "migrate:deploy": "prisma migrate deploy",
     "migrate:reset": "prisma migrate reset",
     "prepare": "husky install",
-    "start": "node ./dist/src/index.js"
+    "start": "node ./dist/src/index.js",
+    "start:migrate": "yarn migrate:deploy && yarn start"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
