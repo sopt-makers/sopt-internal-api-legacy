@@ -64,6 +64,13 @@ export class ServerStack extends cdk.Stack {
     const s3Bucket = new s3.Bucket(this, "SoptCoreAssetsDev", {
       removalPolicy: cdk.RemovalPolicy.DESTROY,
       publicReadAccess: true,
+      cors: [
+        {
+          allowedMethods: [s3.HttpMethods.GET, s3.HttpMethods.POST, s3.HttpMethods.PUT],
+          allowedOrigins: ["http://localhost:3000", "http://sopt.org"],
+          allowedHeaders: ["*"],
+        },
+      ],
     });
 
     // elastic IP
