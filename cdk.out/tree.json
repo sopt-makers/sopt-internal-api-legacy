@@ -748,6 +748,7 @@
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::S3::Bucket",
                   "aws:cdk:cloudformation:props": {
+                    "accessControl": "PublicRead",
                     "corsConfiguration": {
                       "corsRules": [
                         {

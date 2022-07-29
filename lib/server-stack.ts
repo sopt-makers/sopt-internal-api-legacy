@@ -71,6 +71,7 @@ export class ServerStack extends cdk.Stack {
           allowedHeaders: ["*"],
         },
       ],
+      accessControl: s3.BucketAccessControl.PUBLIC_READ,
     });
     s3Bucket.grantPublicAccess();
 
