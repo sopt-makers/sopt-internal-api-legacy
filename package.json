@@ -51,8 +51,8 @@
     "zod-prisma": "^0.5.4"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.113.0",
-    "@aws-sdk/s3-request-presigner": "^3.113.0",
+    "@aws-sdk/client-s3": "^3.137.0",
+    "@aws-sdk/s3-presigned-post": "^3.137.0",
     "@prisma/client": "^4.0.0",
     "aws-cdk-lib": "^2.30.0",
     "constructs": "^10.1.43",

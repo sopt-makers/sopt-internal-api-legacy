@@ -72,6 +72,7 @@ export class ServerStack extends cdk.Stack {
         },
       ],
     });
+    s3Bucket.grantPublicAccess();
 
     // elastic IP
     const eip = new ec2.CfnEIP(this, "server-ip");
