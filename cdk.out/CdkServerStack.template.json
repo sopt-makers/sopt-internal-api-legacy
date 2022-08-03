@@ -690,7 +690,7 @@
    "Type": "AWS::RDS::DBInstance",
    "Properties": {
     "DBInstanceClass": "db.t3.micro",
-    "AllocatedStorage": "100",
+    "AllocatedStorage": "20",
     "AllowMajorVersionUpgrade": false,
     "AutoMinorVersionUpgrade": true,
     "BackupRetentionPeriod": 0,
@@ -716,7 +716,7 @@
       ]
      ]
     },
-    "MaxAllocatedStorage": 105,
+    "MaxAllocatedStorage": 21,
     "MultiAZ": false,
     "PubliclyAccessible": false,
     "StorageType": "gp2",

@@ -96,8 +96,8 @@ export class ServerStack extends cdk.Stack {
       instanceType: ec2.InstanceType.of(ec2.InstanceClass.BURSTABLE3, ec2.InstanceSize.MICRO),
       credentials: rds.Credentials.fromGeneratedSecret("postgres"),
       multiAz: false,
-      allocatedStorage: 100,
-      maxAllocatedStorage: 105,
+      allocatedStorage: 20,
+      maxAllocatedStorage: 21,
       allowMajorVersionUpgrade: false,
       autoMinorVersionUpgrade: true,
       backupRetention: cdk.Duration.days(0),
@@ -107,7 +107,6 @@ export class ServerStack extends cdk.Stack {
       databaseName: "soptCoreDB",
       publiclyAccessible: false,
     });
-
     dbInstance.connections.allowFrom(ec2Instance, ec2.Port.tcp(5432));
 
     new cdk.CfnOutput(this, "dbEndpoint", {

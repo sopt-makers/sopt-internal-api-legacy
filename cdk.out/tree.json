@@ -1039,7 +1039,7 @@
                   "aws:cdk:cloudformation:type": "AWS::RDS::DBInstance",
                   "aws:cdk:cloudformation:props": {
                     "dbInstanceClass": "db.t3.micro",
-                    "allocatedStorage": "100",
+                    "allocatedStorage": "20",
                     "allowMajorVersionUpgrade": false,
                     "autoMinorVersionUpgrade": true,
                     "backupRetentionPeriod": 0,
@@ -1065,7 +1065,7 @@
                         ]
                       ]
                     },
-                    "maxAllocatedStorage": 105,
+                    "maxAllocatedStorage": 21,
                     "multiAz": false,
                     "publiclyAccessible": false,
                     "storageType": "gp2",
