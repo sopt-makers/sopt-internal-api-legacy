@@ -1,5 +1,12 @@
 import * as z from "zod";
-import { CompleteLink, RelatedLinkModel, CompleteUsersOnProjects, RelatedUsersOnProjectsModel } from "./index";
+import {
+  CompleteLink,
+  RelatedLinkModel,
+  CompleteUsersOnProjects,
+  RelatedUsersOnProjectsModel,
+  CompleteUser,
+  RelatedUserModel,
+} from "./index";
 
 export const ProjectModel = z.object({
   id: z.number().int(),
@@ -18,11 +25,13 @@ export const ProjectModel = z.object({
   images: z.string().array(),
   createdAt: z.date(),
   updatedAt: z.date(),
+  creator_id: z.number().int(),
 });
 
 export interface CompleteProject extends z.infer<typeof ProjectModel> {
   links: CompleteLink[];
   users: CompleteUsersOnProjects[];
+  creator: CompleteUser;
 }
 
 /**
@@ -34,5 +43,6 @@ export const RelatedProjectModel: z.ZodSchema<CompleteProject> = z.lazy(() =>
   ProjectModel.extend({
     links: RelatedLinkModel.array(),
     users: RelatedUsersOnProjectsModel.array(),
+    creator: RelatedUserModel,
   }),
 );

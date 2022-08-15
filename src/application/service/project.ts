@@ -4,7 +4,7 @@ import type { Repository } from "@/domain";
 import { CreateProjectModelType, UpdateProjectModelType } from "@/domain/validators/project";
 
 export interface ProjectService {
-  createProject: (params: CreateProjectModelType) => Promise<Project>;
+  createProject: (params: CreateProjectModelType, authUserId: string) => Promise<Project>;
   getProject: (id: number) => Promise<Project | null>;
   listProjects: () => Promise<Array<Partial<Project> & { links: Link[] }>>;
   updateProject: (id: number, params: UpdateProjectModelType) => Promise<Project>;
@@ -19,8 +19,9 @@ export function createProjectService({ repository }: CreateServicesDeps): Projec
   repository;
 
   return {
-    async createProject(params) {
-      const project = await repository.project.createProject(params);
+    async createProject(params, authUserId) {
+      const user = await repository.user.getUserByAuthUserId(authUserId);
+      const project = await repository.project.createProject(params, user!.id);
       return project;
     },
     async getProject(id) {

@@ -1,5 +1,3 @@
-import { Prisma } from "@prisma/client";
-
 import type { ProjectRepository } from "@/domain/projectRepository";
 import { PrismaDatabase } from "@/infrastructure/database";
 import { AppError } from "@/util/error/AppError";
@@ -7,7 +5,7 @@ import { HttpCode } from "@/util/HttpCode";
 
 export function createProjectRepository(db: PrismaDatabase): ProjectRepository {
   return {
-    async createProject(params) {
+    async createProject(params, userId) {
       const project = await db.project.create({
         data: {
           ...params,
@@ -26,6 +24,7 @@ export function createProjectRepository(db: PrismaDatabase): ProjectRepository {
               },
             })),
           },
+          creator_id: userId,
         },
         include: {
           links: true,
@@ -66,37 +65,32 @@ export function createProjectRepository(db: PrismaDatabase): ProjectRepository {
       return projects;
     },
     async updateProject(id, params) {
-      const updateLinksQuery: Prisma.ProjectUpdateArgs["data"] = {
-        links: {
-          deleteMany: {},
-          create: params.links,
-        },
-      };
-
-      const updateUsersQuery: Prisma.ProjectUpdateArgs["data"] = {
-        users: {
-          deleteMany: {},
-          create: params.users?.map((user) => ({
-            description: user.description,
-            role: user.role,
-            is_team_member: user.is_team_member,
-            user: {
-              connect: {
-                id: user.user_id,
-              },
-            },
-          })),
-        },
-      };
-
       const updatedProject = await db.project.update({
         where: {
           id,
         },
         data: {
           ...params,
-          ...(params.links && params.links.length > 0 && updateLinksQuery),
-          ...(params.users && params.users.length > 0 && updateUsersQuery),
+          links: {
+            deleteMany: {},
+            create: params.links && params.links.length > 0 ? params.links : undefined,
+          },
+          users: {
+            deleteMany: {},
+            create:
+              params.users && params.users.length > 0
+                ? params.users?.map((user) => ({
+                    description: user.description,
+                    role: user.role,
+                    is_team_member: user.is_team_member,
+                    user: {
+                      connect: {
+                        id: user.user_id,
+                      },
+                    },
+                  }))
+                : undefined,
+          },
         },
         include: {
           links: true,

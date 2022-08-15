@@ -37,6 +37,8 @@ model Project {
   updatedAt       DateTime          @updatedAt
   links           Link[]
   users           UsersOnProjects[]
+  creator         User @relation(fields: [creator_id], references: [id])
+  creator_id      Int
 }
 
 model Link {
@@ -65,4 +67,5 @@ model User {
   name         String
   generation   Int
   projects     UsersOnProjects[]
+  own_projects Project[]
 }

@@ -17,7 +17,7 @@ authMiddleware.use((req, res, next) => {
 
   try {
     const { userId } = tokenManager.verify(token);
-    res.locals.userId = userId;
+    res.locals.authUserId = userId;
     next();
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {

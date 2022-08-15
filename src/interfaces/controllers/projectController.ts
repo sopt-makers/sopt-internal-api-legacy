@@ -18,7 +18,7 @@ interface ProjectControllerDeps {
 export const createProjectController = ({ services }: ProjectControllerDeps): ProjectController => {
   return {
     createProject: async (req, res) => {
-      const project = await services.project.createProject(req.body);
+      const project = await services.project.createProject(req.body, res.locals.authUserId);
 
       res.status(201).json({
         ...project,

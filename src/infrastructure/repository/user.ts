@@ -8,7 +8,7 @@ export function createUserRepository(db: PrismaDatabase): UserRepository {
       return ret ?? null;
     },
     async getUserByAuthUserId(authUserId: string) {
-      const ret = await db.user.findUnique({ where: { id: parseInt(authUserId) } });
+      const ret = await db.user.findUnique({ where: { auth_user_id: parseInt(authUserId) } });
       return ret ?? null;
     },
     async createUser(params) {
