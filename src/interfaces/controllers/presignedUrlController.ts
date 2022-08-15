@@ -8,8 +8,9 @@ const bucket = process.env.AWS_S3_BUCKET as string;
 
 export const createPresignedUrlController = () => {
   return {
-    createPresignedUrl: async (_: Request, res: Response) => {
-      const key = `image-${uuid()}`;
+    createPresignedUrl: async (req: Request, res: Response) => {
+      const { filename } = req.query;
+      const key = `${uuid()}-${filename}`;
 
       const params: PresignedPostOptions = {
         Bucket: bucket,
@@ -23,7 +24,7 @@ export const createPresignedUrlController = () => {
       // Create the presigned URL.
       const signedUrl = await createPresignedPost(s3Client, params);
 
-      res.json({ signedUrl });
+      res.json({ signedUrl, filename: key });
     },
   };
 };
