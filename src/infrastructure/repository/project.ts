@@ -41,7 +41,11 @@ export function createProjectRepository(db: PrismaDatabase): ProjectRepository {
         },
         include: {
           links: true,
-          users: true,
+          users: {
+            include: {
+              user: true,
+            },
+          },
         },
       });
       if (!project) {
