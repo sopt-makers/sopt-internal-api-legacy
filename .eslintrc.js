@@ -57,7 +57,7 @@ module.exports = {
       },
     },
   ],
-  ignorePatterns: ["prisma/zod/*"],
+  ignorePatterns: ["prisma/zod/*", "cdk/out/*", "prisma/models/*"],
   rules: {
     "no-unused-vars": [
       "error",

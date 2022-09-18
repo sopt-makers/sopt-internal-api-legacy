@@ -44,6 +44,11 @@ export class ServerStack extends cdk.Stack {
       "allow TCP connection on PORT 4000 from anywhere(auth)",
     );
 
+    // create EBS root volume
+    const rootVolume: ec2.BlockDevice = {
+      deviceName: "/dev/xvda", // Use the root device name
+      volume: ec2.BlockDeviceVolume.ebs(30), // Override the volume size in Gibibytes (GiB)
+    };
     // 👇 create the EC2 instance
     const ec2Instance = new ec2.Instance(this, "api-server-ec2-instance", {
       vpc,
@@ -56,6 +61,7 @@ export class ServerStack extends cdk.Stack {
         generation: ec2.AmazonLinuxGeneration.AMAZON_LINUX_2,
       }),
       keyName: "sopt-core-key-pair",
+      blockDevices: [rootVolume],
     });
     ec2Instance.role.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName("AmazonS3FullAccess"));
 
@@ -67,7 +73,7 @@ export class ServerStack extends cdk.Stack {
       cors: [
         {
           allowedMethods: [s3.HttpMethods.GET, s3.HttpMethods.POST, s3.HttpMethods.PUT],
-          allowedOrigins: ["http://localhost:3000", "http://sopt.org"],
+          allowedOrigins: ["http://localhost:3000", "http://sopt.org", "https://sopt-project.pages.dev"],
           allowedHeaders: ["*"],
         },
       ],

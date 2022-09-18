@@ -691,10 +691,7 @@
                     "keyName": "sopt-core-key-pair",
                     "securityGroupIds": [
                       {
-                        "Fn::GetAtt": [
-                          "apiserverec2instancesgB63EA314",
-                          "GroupId"
-                        ]
+                        "Fn::GetAtt": ["apiserverec2instancesgB63EA314", "GroupId"]
                       }
                     ],
                     "subnetId": {
@@ -752,17 +749,12 @@
                     "corsConfiguration": {
                       "corsRules": [
                         {
-                          "allowedHeaders": [
-                            "*"
-                          ],
-                          "allowedMethods": [
-                            "GET",
-                            "POST",
-                            "PUT"
-                          ],
+                          "allowedHeaders": ["*"],
+                          "allowedMethods": ["GET", "POST", "PUT"],
                           "allowedOrigins": [
                             "http://localhost:3000",
-                            "http://sopt.org"
+                            "http://sopt.org",
+                            "https://sopt-project.pages.dev"
                           ]
                         }
                       ]
@@ -800,10 +792,7 @@
                                   "",
                                   [
                                     {
-                                      "Fn::GetAtt": [
-                                        "SoptCoreAssetsDev5AE82816",
-                                        "Arn"
-                                      ]
+                                      "Fn::GetAtt": ["SoptCoreAssetsDev5AE82816", "Arn"]
                                     },
                                     "/*"
                                   ]
@@ -937,16 +926,10 @@
                         "description": "from CdkServerStackapiserverec2instancesgB5174A57:5432",
                         "fromPort": 5432,
                         "groupId": {
-                          "Fn::GetAtt": [
-                            "soptcoredbinstanceSecurityGroup3592A84A",
-                            "GroupId"
-                          ]
+                          "Fn::GetAtt": ["soptcoredbinstanceSecurityGroup3592A84A", "GroupId"]
                         },
                         "sourceSecurityGroupId": {
-                          "Fn::GetAtt": [
-                            "apiserverec2instancesgB63EA314",
-                            "GroupId"
-                          ]
+                          "Fn::GetAtt": ["apiserverec2instancesgB63EA314", "GroupId"]
                         },
                         "toPort": 5432
                       }
@@ -1071,10 +1054,7 @@
                     "storageType": "gp2",
                     "vpcSecurityGroups": [
                       {
-                        "Fn::GetAtt": [
-                          "soptcoredbinstanceSecurityGroup3592A84A",
-                          "GroupId"
-                        ]
+                        "Fn::GetAtt": ["soptcoredbinstanceSecurityGroup3592A84A", "GroupId"]
                       }
                     ]
                   }
