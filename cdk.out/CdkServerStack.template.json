@@ -474,7 +474,13 @@
      "Ref": "apiserverec2instanceInstanceProfile74C395D5"
     },
     "ImageId": {
-     "Ref": "SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter"
+     "Fn::FindInMap": [
+      "apiserverec2instanceAmiMap5FF917BC",
+      {
+       "Ref": "AWS::Region"
+      },
+      "ami"
+     ]
     },
     "InstanceType": "t3.micro",
     "KeyName": "sopt-core-key-pair",
@@ -747,7 +753,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/11Ry47CMAz8Fu4hy0O7dx4r1NNGBXFdualhA22CEgeEqv77pqQP4DT2ZGKP7RmfT/hkBDc3lvl5XKiMV1sCeWaB+q1Qzni1v0i2Oui9WDHhs0LJrc80UsMNUWo84Q6yAgd+4BbOGamAlNG9mAmrrkA41Eg0oQ3xJrA3uLdN22xBwdZfiZrYFqW3iu4ba/zl0e6FSLQj0BJjySH+TkQLb3Zevif6aNG5mikoeZWaOFCHXT1hzUEVWDM359XSy3OcoI0iCBN2dR/omNfM5o5XayDIwGFvMK6hH2m9fCY6dXBqY6f1svsZPDxYV4KGI1pexZEaYYQd2CPS0wJ7wftLXbMUnfE2bkyAhRLDUZrkx9PFx1s/SVZG56pZZM20yZGf3Md1+sWnn3w6OjmlxtZrUiXyNOI/ew3JonECAAA="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/11Ry27CMBD8Fu7G5aH2zqNCOVSNAuJabZwlNSR2ZK9BKMq/18F5QE87Ho93Z8cLvpzx2QRudiqyy7SQKa/3BOLCPPVTo1jw+lgJtjmpY7xhsUsLKfYuVUgtN6JEO8IDpAWO/MitrNVCAkmtBjGLjbwC4dgjUoTG451nb3DvhnanFXlbvyUqYnsUzki674x21WPcCxEpS6AEhpYj/ozirvyz8/I8UrlBaxsmoeR1osNCfe37xUafZIENs0ter524hA06FEqsfVb3kQ7nhpnM8noLBClYHAyGGIaVtutnold7pyZM2q77l97Dg7UlKMjR8Dqs1ApDOYDJkZ4CHAT/b5qGJWi1MyGxL6gqqfIWfjuqXPjpJ8FGq0y2MTZM6Qz52b5d5x98/s7nk7OVcmqcIlkiT0L9A6W0+q5vAgAA"
    },
    "Metadata": {
     "aws:cdk:path": "CdkServerStack/CDKMetadata/Default"
@@ -755,15 +761,11 @@
    "Condition": "CDKMetadataAvailable"
   }
  },
- "Parameters": {
-  "SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter": {
-   "Type": "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>",
-   "Default": "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2"
-  },
-  "BootstrapVersion": {
-   "Type": "AWS::SSM::Parameter::Value<String>",
-   "Default": "/cdk-bootstrap/hnb659fds/version",
-   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+ "Mappings": {
+  "apiserverec2instanceAmiMap5FF917BC": {
+   "ap-northeast-2": {
+    "ami": "ami-054a522ea4ac29c81"
+   }
   }
  },
  "Outputs": {
@@ -1023,6 +1025,13 @@
      ]
     }
    ]
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
   }
  },
  "Rules": {

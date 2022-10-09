@@ -23,7 +23,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/ab284cb59921e6cc23d9641c26f7934b6b31ca655ac9d20b6cb1da2ac26e5228.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/3ec28daedf89c4232f2bc1161f2db14b46b1ad76103db75b476577b4b290801c.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -159,16 +159,16 @@
             "data": "apiserverec2instanceInstanceProfile74C395D5"
           }
         ],
+        "/CdkServerStack/api-server-ec2-instance/AmiMap": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "apiserverec2instanceAmiMap5FF917BC"
+          }
+        ],
         "/CdkServerStack/api-server-ec2-instance/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "apiserverec2instance4262AA0D"
-          }
-        ],
-        "/CdkServerStack/SsmParameterValue:--aws--service--ami-amazon-linux-latest--amzn2-ami-hvm-x86_64-gp2:C96584B6-F00A-464E-AD19-53AFF4B05118.Parameter": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "SsmParameterValueawsserviceamiamazonlinuxlatestamzn2amihvmx8664gp2C96584B6F00A464EAD1953AFF4B05118Parameter"
           }
         ],
         "/CdkServerStack/SoptCoreAssetsDev/Resource": [

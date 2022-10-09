@@ -57,8 +57,8 @@ export class ServerStack extends cdk.Stack {
       },
       securityGroup: ec2InstanceSG,
       instanceType: ec2.InstanceType.of(ec2.InstanceClass.BURSTABLE3, ec2.InstanceSize.MICRO),
-      machineImage: new ec2.AmazonLinuxImage({
-        generation: ec2.AmazonLinuxGeneration.AMAZON_LINUX_2,
+      machineImage: ec2.MachineImage.genericLinux({
+        "ap-northeast-2": "ami-054a522ea4ac29c81",
       }),
       keyName: "sopt-core-key-pair",
       blockDevices: [rootVolume],
