@@ -3,7 +3,7 @@ import express from "express";
 import { createAccessTokenManager } from "@/infrastructure/security/JwtAccessTokenManager";
 
 const authMiddleware = express.Router();
-const adminAuthMiddleware = express.Router();
+export const adminAuthMiddleware = express.Router();
 
 // TODO: inject token manager
 const tokenManager = createAccessTokenManager();

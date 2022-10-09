@@ -2,6 +2,7 @@ import { Router } from "express";
 import { z } from "zod";
 
 import { Services } from "@/application/service";
+import { adminAuthMiddleware } from "@/infrastructure/webserver/middlewares/auth";
 import { asyncRoute } from "@/util/route";
 import { validate } from "@/util/validate";
 
@@ -30,6 +31,7 @@ export function createUserRoutes({ services }: CreateRoutesDeps) {
 
   router.post(
     "/",
+    adminAuthMiddleware,
     validate(
       z.object({
         body: CreateUserModel,
