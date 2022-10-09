@@ -4,11 +4,12 @@ import z from "zod";
 import { AccessTokenManager } from "@/application/security/accessTokenManager";
 
 const jwtSecret = process.env.JWT_SECRET as string;
+const adminJwtSecret = process.env.ADMIN_JWT_SECRET as string;
 
 export const createAccessTokenManager = (): AccessTokenManager => {
   return {
-    verify(accessToken) {
-      const extracted = verify(accessToken, jwtSecret);
+    verify({ token, isAdmin = false }: { token: string; isAdmin?: boolean }) {
+      const extracted = verify(token, isAdmin ? adminJwtSecret : jwtSecret);
 
       const validator = z.object({
         iss: z.string(),

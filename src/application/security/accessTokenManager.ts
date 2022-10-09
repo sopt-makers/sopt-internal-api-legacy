@@ -1,3 +1,3 @@
 export interface AccessTokenManager {
-  verify: (token: string) => { userId: number };
+  verify: ({ token, isAdmin }: { token: string; isAdmin?: boolean }) => { userId: number };
 }
